@@ -1,0 +1,11 @@
+---
+Name: silverstripe-darksky
+---
+
+# Configure Admin Extensions:
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - "suilven/silverstripe-darksky: admin/client/dist/styles/bundle.css"
+  extra_requirements_javascript:
+    - "suilven/silverstripe-darksky: admin/client/dist/js/bundle.js"
