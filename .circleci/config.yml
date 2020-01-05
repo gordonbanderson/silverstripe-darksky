@@ -28,6 +28,7 @@ jobs:
         - master
         - develop
         - upgradess4
+        - upgradess4clean
 
     steps:
       - checkout
@@ -40,8 +41,9 @@ jobs:
             - v1-dependencies-
 
       - run: composer validate
-      - run: composer require --prefer-source --no-update silverstripe/recipe-cms:1.1.x-dev
+      - run: composer require --prefer-source --no-update silverstripe/recipe-cms:4.x-dev
       - run: composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+      - run: composer require --prefer-source --no-interaction silverstripe/widgets
 
 
 
@@ -52,6 +54,6 @@ jobs:
 
       # run test,upload coverage
       #- run: vendor/bin/phpstan analyze code
-      - run: phpdbg -qrr vendor/bin/phpunit -d memory_limit=512M --coverage-clover=coverage.xml tests/
+      - run: phpdbg -qrr vendor/bin/phpunit -d memory_limit=4G --coverage-clover=coverage.xml tests/
       - run: bash <(curl -s https://codecov.io/bash) -f coverage.xml
 
