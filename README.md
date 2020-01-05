@@ -1,4 +1,27 @@
 # SilverStripe Module Starter
+[![Build Status](https://travis-ci.org/gordonbanderson/silverstripe-darksky.svg?branch=master)](https://travis-ci.org/gordonbanderson/silverstripe-darksky)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/badges/build.png?b=master)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/build-status/master)
+[![CircleCI](https://circleci.com/gh/gordonbanderson/silverstripe-darksky.svg?style=svg)](https://circleci.com/gh/gordonbanderson/silverstripe-darksky)
+
+[![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-darksky/coverage.svg?branch=master)](https://codecov.io/github/gordonbanderson/silverstripe-darksky?branch=master)
+
+
+[![Latest Stable Version](https://poser.pugx.org/suilven/silverstripe-darksky/version)](https://packagist.org/packages/suilven/silverstripe-darksky)
+[![Latest Unstable Version](https://poser.pugx.org/suilven/silverstripe-darksky/v/unstable)](//packagist.org/packages/suilven/silverstripe-darksky)
+[![Total Downloads](https://poser.pugx.org/suilven/silverstripe-darksky/downloads)](https://packagist.org/packages/suilven/silverstripe-darksky)
+[![License](https://poser.pugx.org/suilven/silverstripe-darksky/license)](https://packagist.org/packages/suilven/silverstripe-darksky)
+[![Monthly Downloads](https://poser.pugx.org/suilven/silverstripe-darksky/d/monthly)](https://packagist.org/packages/suilven/silverstripe-darksky)
+[![Daily Downloads](https://poser.pugx.org/suilven/silverstripe-darksky/d/daily)](https://packagist.org/packages/suilven/silverstripe-darksky)
+[![composer.lock](https://poser.pugx.org/suilven/silverstripe-darksky/composerlock)](https://packagist.org/packages/suilven/silverstripe-darksky)
+
+[![GitHub Code Size](https://img.shields.io/github/languages/code-size/gordonbanderson/silverstripe-darksky)](https://github.com/gordonbanderson/silverstripe-darksky)
+[![GitHub Repo Size](https://img.shields.io/github/repo-size/gordonbanderson/silverstripe-darksky)](https://github.com/gordonbanderson/silverstripe-darksky)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/gordonbanderson/silverstripe-darksky)](https://github.com/gordonbanderson/silverstripe-darksky)
+[![GitHub Activity](https://img.shields.io/github/commit-activity/m/gordonbanderson/silverstripe-darksky)](https://github.com/gordonbanderson/silverstripe-darksky)
+[![GitHub Issues](https://img.shields.io/github/issues/gordonbanderson/silverstripe-darksky)](https://github.com/gordonbanderson/silverstripe-darksky/issues)
+
+![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-darksky/branch.svg?branch=master)
 
 A starter kit that has everything you need to get underway with a new module for [SilverStripe v4][silverstripe].
 
@@ -225,17 +248,14 @@ around 3 times faster, but lacks out of the box ability to test with different v
 use third party software, e.g. sphinx, then then `.travis.yml` and `circleci\config.yml` will need edited.
 
 You will need to add accounts and then add your module at the following URLs:
-* Travis: https://travis-ci.org/
 * CircleCI: https://circleci.com/
 
 ### Code Coverage
 The CI files upload code coverage to a third party service called CodeCov.  To see your test coverage, open an account
-at https://codecov.io and add your module there.
 
 ### Code Quality
 Scrutinizer is a third party service that staticaly analyzes your code looking for likes of PSR violations, formatting,
 and complex code (i.e. code smells).  A sample configuration file is provided.  You will need to set up an account and
-add your module at https://scrutinizer-ci.com/
 
 ### Badges
 A simple Ruby script to add badges to your README file is available at https://github.com/gordonbanderson/Badger - simply
