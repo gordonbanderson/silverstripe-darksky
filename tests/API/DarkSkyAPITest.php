@@ -26,7 +26,7 @@ class DarkSkyAPITest extends SapphireTest
     public function test_forecast_at_location()
     {
         $testAdapter = new TestClientAdapter();
-        $api = new DarkSkyAPI();
+        $api = new DarkSkyAPI($testAdapter);
 
         // Lumpini park in Bangkok, data hardwired using the above test adapter
         /** @var Forecast $forecast */
