@@ -1,6 +1,7 @@
 <?php
 namespace Suilven\DarkSky\Helper;
 
+use Carbon\Carbon;
 use Suilven\DarkSky\Model\WeatherDataPoint;
 use VertigoLabs\Overcast\ValueObjects\DataPoint;
 
@@ -13,18 +14,24 @@ class WeatherDataPopulator
     {
         $record = new WeatherDataPoint();
         $record->CloudCoverage = $darkSkyDataPoint->getCloudCover();
-        $record->DewPoint = $darkSkyDataPoint->getCloudCover();
-        $record->Humidity = $darkSkyDataPoint->getCloudCover();
-        $record->Icon = $darkSkyDataPoint->getCloudCover();
-        $record->MaxTemperature = $darkSkyDataPoint->getCloudCover();
-        $record->MinTemperature = $darkSkyDataPoint->getCloudCover();
-        $record->MoonPhase = $darkSkyDataPoint->getCloudCover();
-        $record->PrecipitationDensity = $darkSkyDataPoint->getCloudCover();
-        $record->PrecipitationProbablity = $darkSkyDataPoint->getCloudCover();
-        $record->Visibility = $darkSkyDataPoint->getCloudCover();
-        $record->When = $darkSkyDataPoint->getCloudCover();
-        $record->WindSpeed = $darkSkyDataPoint->getCloudCover();
-        $record->WindBearing = $darkSkyDataPoint->getCloudCover();
+        $record->CurrentTemperature = $darkSkyDataPoint->getTemperature()->getCurrent();
+        $record->DewPoint = $darkSkyDataPoint->getDewPoint();
+        $record->Humidity = $darkSkyDataPoint->getHumidity();
+        $record->Icon = $darkSkyDataPoint->getIcon();
+        $record->MaxTemperature = $darkSkyDataPoint->getTemperature()->getMax();
+        $record->MinTemperature = $darkSkyDataPoint->getTemperature()->getMin();
+        $record->MoonPhase = $darkSkyDataPoint->getMoonPhase();
+        $record->PrecipitationIntensity = $darkSkyDataPoint->getPrecipitation()->getIntensity();
+        $record->PrecipitationProbablity = $darkSkyDataPoint->getPrecipitation()->getProbability();
+        $record->Visibility = $darkSkyDataPoint->getVisibility();
+
+        $time = $darkSkyDataPoint->getTime()->format('Y-m-d H:i:s');
+        error_log('TIME: ' . $time);
+        //$carbon = Carbon::createFromTimestamp($time->getTimestamp());
+        $record->When = $time;
+
+        $record->WindSpeed = $darkSkyDataPoint->getWindSpeed();
+        $record->WindBearing = $darkSkyDataPoint->getWindBearing();
         return $record;
     }
 

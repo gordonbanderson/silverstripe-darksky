@@ -46,7 +46,26 @@ class DarkSkyAPITest extends SapphireTest
         $populator = new WeatherDataPopulator();
 
         $currentWeatherRecord = $populator->createRecord($forecast->getCurrently());
+        error_log(print_r($forecast->getCurrently(), 1));
         $currentWeatherRecord->write();
+
+        // note that recordings were made in F, not C, but it does not matter in that we are testing out this module,
+        // not the underlying API mechanism
+        $this->assertEquals(0, $currentWeatherRecord->CloudCoverage);
+        $this->assertEquals(70.73, $currentWeatherRecord->DewPoint);
+        $this->assertEquals(0.76, $currentWeatherRecord->Humidity);
+        $this->assertEquals('clear-day', $currentWeatherRecord->Icon);
+        $this->assertEquals(0, $currentWeatherRecord->MaxTemperature);
+        $this->assertEquals(0, $currentWeatherRecord->MinTemperature);
+        $this->assertEquals(0, $currentWeatherRecord->MoonPhase);
+        $this->assertEquals(0, $currentWeatherRecord->PrecipitationDensity);
+        $this->assertEquals(0, $currentWeatherRecord->PrecipitationProbablity);
+        $this->assertEquals(10, $currentWeatherRecord->Visibility);
+        $this->assertEquals('', $currentWeatherRecord->Datetime);
+        $this->assertEquals(0, $currentWeatherRecord->CloudCoverage);
+        $this->assertEquals(2.95, $currentWeatherRecord->WindSpeed);
+        $this->assertEquals(30, $currentWeatherRecord->WindBearing);
+
 
 // loop daily data points
         /** @var DataPoint $dailyData */

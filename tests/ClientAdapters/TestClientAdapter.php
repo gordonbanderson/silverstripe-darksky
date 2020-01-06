@@ -16,12 +16,10 @@ class TestClientAdapter extends ClientAdapter implements ClientAdapterInterface
      */
     public function getForecast($latitude, $longitude, \DateTime $time = NULL, array $parameters = NULL)
     {
-        $path = getcwd() . '/tests/vcr/test-forecast-at-location.yml';
-        error_log('PATH: ' . $path);
-        $yaml = file_get_contents($path);
-        $parsed = yaml_parse($yaml);
+        $path = getcwd() . '/tests/vcr/test-forecast-at-location.json';
+        $json = json_decode(file_get_contents($path), true);
 
-        $response = $parsed[0]['response'];
+        $response = $json[0]['response'];
 
         // these are needed to avoid Forecast erroring out with no debug message
         $this->headers = [
@@ -33,7 +31,7 @@ class TestClientAdapter extends ClientAdapter implements ClientAdapterInterface
             ]
         ];
 
-        $body = $parsed[0]['response']['body'];
+        $body = $json[0]['response']['body'];
         return json_decode($body, true);
     }
 

@@ -11,6 +11,7 @@ class WeatherDataPoint extends DataObject
     private static $table_name = 'SuilvenWeatherDataPoint';
 
     private static $db = [
+        'CurrentTemperature' => 'Float',
         'CloudCoverage' => 'Float',
         'DewPoint' => 'Float',
         'Humidity' => 'Float',
@@ -19,7 +20,7 @@ class WeatherDataPoint extends DataObject
         'MaxTemperature' => 'Float',
         'MinTemperature' => 'Float',
         'MoonPhase' => 'Float',
-        'PrecipitationDensity' => 'Float',
+        'PrecipitationIntensity' => 'Float',
         'PrecipitationProbablity' => 'Float',
         'Visibility' => 'Float',
         'When' => 'Datetime',
