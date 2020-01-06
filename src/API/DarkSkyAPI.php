@@ -8,6 +8,7 @@ use SilverStripe\Core\Config\Config;
 use Suilven\DarkSky\Client\OvercastClient;
 use Suilven\DarkSky\Client\TestOvercastClient;
 use Suilven\DarkSky\Interfaces\DarkSkyClientInterface;
+use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
 use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPI
@@ -17,9 +18,13 @@ class DarkSkyAPI
      */
     private $client;
 
-    public function __construct()
+    /**
+     * DarkSkyAPI constructor.
+     * @param ClientAdapter|null $clientAdapter
+     */
+    public function __construct($clientAdapter = null)
     {
-         $this->createClient();
+         $this->createClient($clientAdapter);
     }
 
     private function getAPIKey()
@@ -27,11 +32,13 @@ class DarkSkyAPI
         return Config::inst()->get(DarkSkyAPI::class, 'api_key');
     }
 
-    private function createClient()
+    /**
+     * @param ClientAdapter|null $clientAdapter
+     */
+    private function createClient($clientAdapter = null)
     {
-        error_log('Creating client');
         $apiKey = $this->getAPIKey();
-        $this->client = new Overcast($apiKey);
+        $this->client = $clientAdapter === null ? new Overcast($apiKey) : new Overcast($apiKey, $clientAdapter);
     }
 
     public function setClient(DarkSkyClientInterface $newClient)
@@ -41,7 +48,7 @@ class DarkSkyAPI
 
     public function getForecastAt($latitude, $longitude)
     {
-        return $this->client->getForecast($latitude, $longitude);
+        return $this->client->getForecast($latitude, $longitude, null, ['units' => 'auto']);
     }
 
     public function getNumberOfAPICalls()
