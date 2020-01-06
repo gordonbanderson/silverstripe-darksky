@@ -4,6 +4,7 @@
 namespace Suilven\DarkSky\API;
 
 
+use SilverStripe\Core\Config\Config;
 use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPI
@@ -13,19 +14,31 @@ class DarkSkyAPI
      */
     private $client;
 
-    private function getAPIKey()
+    public function __construct()
     {
-        return $this->config()->get('api_key');
+         $this->createClient();
     }
 
-    private function getClient()
+    private function getAPIKey()
     {
+        return Config::inst()->get(DarkSkyAPI::class, 'api_key');
+    }
+
+    private function createClient()
+    {
+        error_log('Creating client');
         $apiKey = $this->getAPIKey();
+        error_log('APIKEY: ' . $apiKey);
         $this->client = new Overcast($apiKey);
     }
 
     public function getForecastAt($latitude, $longitude)
     {
+        return $this->client->getForecast($latitude, $longitude);
+    }
 
+    public function getNumberOfAPICalls()
+    {
+        return $this->client->getApiCalls();
     }
 }
