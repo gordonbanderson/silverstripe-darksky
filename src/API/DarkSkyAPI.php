@@ -5,12 +5,15 @@ namespace Suilven\DarkSky\API;
 
 
 use SilverStripe\Core\Config\Config;
+use Suilven\DarkSky\Client\OvercastClient;
+use Suilven\DarkSky\Client\TestOvercastClient;
+use Suilven\DarkSky\Interfaces\DarkSkyClientInterface;
 use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPI
 {
     /**
-     * @var Overcast
+     * @var DarkSkyClientInterface
      */
     private $client;
 
@@ -28,8 +31,12 @@ class DarkSkyAPI
     {
         error_log('Creating client');
         $apiKey = $this->getAPIKey();
-        error_log('APIKEY: ' . $apiKey);
         $this->client = new Overcast($apiKey);
+    }
+
+    public function setClient(DarkSkyClientInterface $newClient)
+    {
+        $this->client = $newClient;
     }
 
     public function getForecastAt($latitude, $longitude)

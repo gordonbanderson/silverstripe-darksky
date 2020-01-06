@@ -6,6 +6,8 @@ namespace Tests\Suilven\DarkSky\API;
 
 use SilverStripe\Dev\SapphireTest;
 use Suilven\DarkSky\API\DarkSkyAPI;
+use Tests\Suilven\DarkSky\Client\TestOvercastClient;
+use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPITest extends SapphireTest
 {
@@ -16,17 +18,11 @@ class DarkSkyAPITest extends SapphireTest
         'X-Request-Id',
     );
 
-    public function setUp()
-    {
-        parent::setUp();
-       // \VCR\VCR::configure()->setCassettePath('tests/vcr');
-    }
 
     public function test_forecast_at_location()
     {
-    //    \VCR\VCR::turnOn();
-    //    \VCR\VCR::insertCassette('test-forecast-at-location.yml');
         $api = new DarkSkyAPI();
+
         // Lumpini park in Bangkok
         $forecast = $api->getForecastAt(13.7309428,100.5408634);
 
@@ -62,6 +58,5 @@ class DarkSkyAPITest extends SapphireTest
             echo "\n\n";
         }
 
-      //  \VCR\VCR::turnOff();
     }
 }
