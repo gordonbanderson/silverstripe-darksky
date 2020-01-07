@@ -5,9 +5,12 @@ namespace Tests\Suilven\DarkSky\API;
 
 
 use SilverStripe\Dev\SapphireTest;
+use SilverStripe\ORM\DB;
+use Smindel\GIS\GIS;
 use Suilven\DarkSky\API\DarkSkyAPI;
 use Suilven\DarkSky\Helper\WeatherDataPopulator;
 use Suilven\DarkSky\Model\WeatherDataPoint;
+use Suilven\DarkSky\Model\WeatherLocation;
 use Tests\Suilven\DarkSky\Client\TestOvercastClient;
 use Tests\Suilven\DarkSky\ClientAdapters\TestClientAdapter;
 use VertigoLabs\Overcast\Forecast;
@@ -33,12 +36,21 @@ class DarkSkyAPITest extends SapphireTest
         /** @var Forecast $forecast */
         $forecast = $api->getForecastAt(13.7309428,100.5408634);
 
+
+
         $this->assertEquals(18, $api->getNumberOfAPICalls());
 
         $populator = new WeatherDataPopulator();
 
-        $currentWeatherRecord = $populator->createRecord($forecast->getCurrently());
-        $currentWeatherRecord->write();
+        $nDataRecordsAtStart = WeatherDataPoint::get()->count();
+
+        $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
+            $forecast->getLatitude(),
+            $forecast->getLongitude(),
+            $forecast->getCurrently()
+        );
+
+
 
         // note that recordings were made in F, not C, but it does not matter in that we are testing out this module,
         // not the underlying API mechanism
@@ -62,7 +74,7 @@ class DarkSkyAPITest extends SapphireTest
          $singleDayForecast =$dailyForecasts->getData()[4];
 
          /** @var WeatherDataPoint $singleDayRecord */
-         $singleDayRecord = $populator->createRecord($singleDayForecast);
+         $singleDayRecord = $populator->generatePopulatedRecord($singleDayForecast);
 
         $this->assertEquals(0.47, $singleDayRecord->CloudCoverage);
         $this->assertEquals(72.74, $singleDayRecord->DewPoint);
@@ -77,5 +89,22 @@ class DarkSkyAPITest extends SapphireTest
         $this->assertEquals('2020-01-09 17:00:00', $singleDayRecord->When);
         $this->assertEquals(4.9, $singleDayRecord->WindSpeed);
         $this->assertEquals(198, $singleDayRecord->WindBearing);
+
+
+        $location = $currentWeatherRecord->Location;
+        $this->assertEquals(1, WeatherLocation::get()->count());
+
+        foreach ($forecast->getDaily()->getData() as $dailyData) {
+            $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
+                $forecast->getLatitude(),
+                $forecast->getLongitude(),
+                $dailyData
+            );
+        }
+
+        $this->assertEquals(1, WeatherLocation::get()->count());
+        $nDataRecordsAtEnd = WeatherDataPoint::get()->count();
+        $delta = $nDataRecordsAtEnd - $nDataRecordsAtStart;
+        $this->assertEquals(9, $delta);
     }
 }
