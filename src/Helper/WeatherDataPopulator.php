@@ -26,7 +26,6 @@ class WeatherDataPopulator
         $record->Visibility = $darkSkyDataPoint->getVisibility();
 
         $time = $darkSkyDataPoint->getTime()->format('Y-m-d H:i:s');
-        error_log('TIME: ' . $time);
         //$carbon = Carbon::createFromTimestamp($time->getTimestamp());
         $record->When = $time;
 
