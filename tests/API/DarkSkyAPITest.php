@@ -7,6 +7,7 @@ namespace Tests\Suilven\DarkSky\API;
 use SilverStripe\Dev\SapphireTest;
 use Suilven\DarkSky\API\DarkSkyAPI;
 use Suilven\DarkSky\Helper\WeatherDataPopulator;
+use Suilven\DarkSky\Model\WeatherDataPoint;
 use Tests\Suilven\DarkSky\Client\TestOvercastClient;
 use Tests\Suilven\DarkSky\ClientAdapters\TestClientAdapter;
 use VertigoLabs\Overcast\Forecast;
@@ -32,21 +33,11 @@ class DarkSkyAPITest extends SapphireTest
         /** @var Forecast $forecast */
         $forecast = $api->getForecastAt(13.7309428,100.5408634);
 
-        echo $api->getNumberOfAPICalls().' API Calls Today'."\n";
-
-// temperature current information
-        echo 'Current Temp: '.$forecast->getCurrently()->getTemperature()->getCurrent()."\n";
-        echo 'Feels Like: '.$forecast->getCurrently()->getApparentTemperature()->getCurrent()."\n";
-        echo 'Min Temp: '.$forecast->getCurrently()->getTemperature()->getMin()."\n";
-        echo 'Max Temp: '.$forecast->getCurrently()->getTemperature()->getMax()."\n";
-
-// get daily summary
-        echo 'Daily Summary: '.$forecast->getDaily()->getSummary()."\n";
+        $this->assertEquals(18, $api->getNumberOfAPICalls());
 
         $populator = new WeatherDataPopulator();
 
         $currentWeatherRecord = $populator->createRecord($forecast->getCurrently());
-        error_log(print_r($forecast->getCurrently(), 1));
         $currentWeatherRecord->write();
 
         // note that recordings were made in F, not C, but it does not matter in that we are testing out this module,
@@ -61,33 +52,30 @@ class DarkSkyAPITest extends SapphireTest
         $this->assertEquals(0, $currentWeatherRecord->PrecipitationDensity);
         $this->assertEquals(0, $currentWeatherRecord->PrecipitationProbablity);
         $this->assertEquals(10, $currentWeatherRecord->Visibility);
-        $this->assertEquals('', $currentWeatherRecord->Datetime);
-        $this->assertEquals(0, $currentWeatherRecord->CloudCoverage);
+        $this->assertEquals('2020-01-06 00:59:28', $currentWeatherRecord->When);
         $this->assertEquals(2.95, $currentWeatherRecord->WindSpeed);
         $this->assertEquals(30, $currentWeatherRecord->WindBearing);
 
+        $dailyForecasts = $forecast->getDaily();
 
-// loop daily data points
-        /** @var DataPoint $dailyData */
-        foreach($forecast->getDaily()->getData() as $dailyData) {
-            echo "ICON: " . $dailyData->getIcon() . "\n";
-            echo 'Date: '.$dailyData->getTime()->format('D, M jS y')."\n";
-            // get daily temperature information
-            echo 'Min Temp: '.$dailyData->getTemperature()->getMin()."\n";
-            echo 'Max Temp: '.$dailyData->getTemperature()->getMax()."\n";
+        /** @var DataPoint $singleDayForecast */
+         $singleDayForecast =$dailyForecasts->getData()[4];
 
-            // get daily precipitation information
-            echo 'Precipitation Probability: '.$dailyData->getPrecipitation()->getProbability()."\n";
-            echo 'Precipitation Intensity: '.$dailyData->getPrecipitation()->getIntensity()."\n";
+         /** @var WeatherDataPoint $singleDayRecord */
+         $singleDayRecord = $populator->createRecord($singleDayForecast);
 
-            // get other general daily information
-            echo 'Wind Speed: '.$dailyData->getWindSpeed()."\n";
-            echo 'Wind Direction: '.$dailyData->getWindBearing()."\n";
-            echo 'Visibility: '.$dailyData->getVisibility()."\n";
-            echo 'Cloud Coverage: '.$dailyData->getCloudCover()."\n";
-
-            echo "\n\n";
-        }
-
+        $this->assertEquals(0.47, $singleDayRecord->CloudCoverage);
+        $this->assertEquals(72.74, $singleDayRecord->DewPoint);
+        $this->assertEquals(0.69, $singleDayRecord->Humidity);
+        $this->assertEquals('partly-cloudy-day', $singleDayRecord->Icon);
+        $this->assertEquals(99.03, $singleDayRecord->MaxTemperature);
+        $this->assertEquals(76.7, $singleDayRecord->MinTemperature);
+        $this->assertEquals(0.49, $singleDayRecord->MoonPhase);
+        $this->assertEquals(null, $singleDayRecord->PrecipitationDensity);
+        $this->assertEquals(0.05, $singleDayRecord->PrecipitationProbablity);
+        $this->assertEquals(10, $singleDayRecord->Visibility);
+        $this->assertEquals('2020-01-09 17:00:00', $singleDayRecord->When);
+        $this->assertEquals(4.9, $singleDayRecord->WindSpeed);
+        $this->assertEquals(198, $singleDayRecord->WindBearing);
     }
 }
