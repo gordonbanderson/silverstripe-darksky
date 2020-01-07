@@ -23,7 +23,7 @@ class WeatherDataPoint extends DataObject
         'MoonPhase' => 'Float',
         'PrecipitationIntensity' => 'Float',
         'PrecipitationProbablity' => 'Float',
-        'Visibility' => Float,
+        'Visibility' => 'Float',
         'When' => DBDatetime::class,
         'WindSpeed' => 'Float',
         'WindBearing' => 'Int', // degrees
