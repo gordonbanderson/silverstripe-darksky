@@ -5,6 +5,7 @@ namespace Suilven\DarkSky\Model;
 
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBDatetime;
 
 class WeatherDataPoint extends DataObject
 {
@@ -22,8 +23,8 @@ class WeatherDataPoint extends DataObject
         'MoonPhase' => 'Float',
         'PrecipitationIntensity' => 'Float',
         'PrecipitationProbablity' => 'Float',
-        'Visibility' => 'Float',
-        'When' => 'Datetime',
+        'Visibility' => Float,
+        'When' => DBDatetime::class,
         'WindSpeed' => 'Float',
         'WindBearing' => 'Int', // degrees
     ];
