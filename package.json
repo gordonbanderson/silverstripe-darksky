@@ -1,68 +1,78 @@
 {
-  "name": "silverstripe-darksky",
+  "name": "default-ss4-bootstrap-theme",
   "version": "1.0.0",
-  "description": "Use the DarkSky API to render weather on your SilverStripe website.",
-  "homepage": "https://github.com/suilven/silverstripe-darksky",
-  "keywords": [
-    "weather",
-    "historical",
-    "Dark",
-    "Sky",
-    "DarkSky"
-  ],
-  "license": "BSD-3-Clause",
-  "author": "n/a",
-  "contributors": [
-    {
-      "name": "Gordon Anderson",
-      "email": "gordon.b.anderson@gmail.com",
-      "url": "http://www.gordonbanderson.com"
-    }
-  ],
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/suilven/silverstripe-darksky.git"
+    "url": "git+https://github.com/gordonbanderson/default-ss4-bootstrap-theme.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/suilven/silverstripe-darksky/issues"
+    "url": "https://github.com/gordonbanderson/default-ss4-bootstrap-theme/issues"
   },
-  "engines": {
-    "node": ">= 6.x"
-  },
-  "scripts": {
-    "watch": "webpack --env.development --colors --watch",
-    "build": "webpack --env.production --colors --optimize-minimize"
-  },
-  "dependencies": {},
+  "homepage": "https://github.com/gordonbanderson/default-ss4-bootstrap-theme#readme",
   "devDependencies": {
-    "autoprefixer": "^7.1.6",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "clean-webpack-plugin": "^0.1.17",
-    "copy-webpack-plugin": "^4.2.0",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.5",
-    "node-sass": "^4.5.3",
-    "postcss-loader": "^2.0.8",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.8.1"
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "autoprefixer": "^9.7.1",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.1",
+    "css-loader": "^1.0.1",
+    "file-loader": "^2.0.0",
+    "image-webpack-loader": "^4.6.0",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-webpack-plugin": "^2.4.2",
+    "img-loader": "^3.0.1",
+    "imports-loader": "^0.8.0",
+    "laravel-mix": "^4.1.4",
+    "mini-css-extract-plugin": "^0.4.5",
+    "node-sass": "^4.13.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "resolve-url-loader": "2.3.1",
+    "sass-loader": "^7.3.1",
+    "spritesmith-cli": "^1.1.2",
+    "svg-url-loader": "^2.3.3",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "url-loader": "^1.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-concat-plugin": "^3.0.0"
   },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "modules": false
-        }
-      ]
-    ]
+  "dependencies": {
+    "@ayctor/laravel-mix-svg-sprite": "^0.1.0",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.9.3",
+    "cookieconsent": "^3.1.1",
+    "flexslider": "^2.7.2",
+    "font-awesome": "^4.7.0",
+    "imagemin": "^6.1.0",
+    "jquery": "^3.4.1",
+    "lazysizes": "^4.1.8",
+    "modernizr": "^3.8.0",
+    "owl.carousel": "^2.3.4",
+    "photoswipe": "^4.1.3",
+    "popper.js": "^1.16.0",
+    "postcss-css-variables": "^0.13.0",
+    "progress-bar-webpack-plugin": "^1.12.1",
+    "smartcrop": "^2.0.3",
+    "timeago": "^1.6.7",
+    "webpack-merge": "^4.2.2"
   },
   "browserslist": [
-    "> 1%",
     "last 2 versions"
   ]
 }
