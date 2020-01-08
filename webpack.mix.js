@@ -1,5 +1,35 @@
 let mix = require('laravel-mix');
 
+let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+let svgSpriteDestination = "client/dist/images/sprite.svg"
+mix.webpackConfig({ plugins:
+    //  [ new SVGSpritemapPlugin({ src: 'client/src/images/*.svg', filename : svgSpriteDestination, svgo : {removeTitle : true} }) ]
+      [ new SVGSpritemapPlugin( 'client/src/images/*.svg',
+        {
+        }) ]
+})
+
+mix.then(function () {
+  let fs = require('fs-extra');
+  fs.pathExists('client/dist/images/spritemap.svg')
+    .then(
+
+      fs.remove('client/dist/images/spritemap.svg', err => {
+        if (err) return console.error(err)
+
+        console.log('success!') // I just deleted my entire HOME directory.
+      })
+
+    )
+  fs.move('spritemap.svg', 'client/dist/images/spritemap.svg')
+    .then(() => console.log('success!'))
+    .catch(err => console.error(err))
+})
+
+//.copy('spritemap.svg', 'client/dist/images/spritemap.svg')
+//  .delete('spritemap.svg')
+
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,6 +43,7 @@ let mix = require('laravel-mix');
 
 //mix.js('src/app.js', 'dist/').sass('src/app.scss', 'dist/');
 
+/*
 mix.sass('src/scss/main.scss', 'dist/css')
     .options({
         postCss: [
@@ -66,40 +97,8 @@ mix.sass('src/scss/main.scss', 'dist/css')
     .copy('./dist/img/vendor/photoswipe/src/css/default-skin/default-skin.svg',
         '../../public/dist/img/vendor/photoswipe/src/css/default-skin/default-skin.svg')
 
-
-
-
-    /*
-
-    ./dist/img/vendor/photoswipe/src/css/default-skin/default-skin.png
-./dist/img/vendor/photoswipe/src/css/default-skin/preloader.gif
-./dist/img/vendor/photoswipe/src/css/default-skin/default-skin.svg
-
-
-
-    <% require css("weboftalent/flickr:css/flickr.css") %>
-<% require css("weboftalent/flickr:thirdparty/photoswipe/photoswipe.css") %>
-<% require css("weboftalent/flickr:thirdparty/photoswipe/default-skin/default-skin.css") %>
-
-<% require javascript("weboftalent/flickr:thirdparty/photoswipe/photoswipe.min.js") %>
-<% require javascript("weboftalent/flickr:thirdparty/photoswipe/photoswipe-ui-default.min.js") %>
-<% require javascript("weboftalent/flickr:javascript/flickrswipe.js") %>
-     */
-    /*
-    .js('src/js/main.js', 'dist/js')
-    .scripts([
-        'js/thirdparty/bootstrap.min.js',
-        'js/thirdparty/jquery.flexslider.js',
-        'js/thirdparty/jquery.timeago.js',
-
-        // lazysizes
-        // cookieconsent
-    ], 'dist/js/thirdparty.js')
 */
-
-    // workaround, see https://github.com/JeffreyWay/laravel-mix/issues/1793 - this results in map files in the
-    // same directory as the output files
-    .sourceMaps(true, 'source-map')
+   // .sourceMaps(true, 'source-map')
 
 // Full API
 // mix.js(src, output);
