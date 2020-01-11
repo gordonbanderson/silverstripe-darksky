@@ -7,6 +7,7 @@ namespace Suilven\DarkSky\API;
 use SilverStripe\Core\Config\Config;
 use Suilven\DarkSky\Client\OvercastClient;
 use Suilven\DarkSky\Client\TestOvercastClient;
+use Suilven\DarkSky\ClientAdapters\CachedClientAdapter;
 use Suilven\DarkSky\Interfaces\DarkSkyClientInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
 use VertigoLabs\Overcast\Overcast;
@@ -24,6 +25,9 @@ class DarkSkyAPI
      */
     public function __construct($clientAdapter = null)
     {
+        if (empty($clientAdapter)) {
+            $clientAdapter = new CachedClientAdapter();
+        }
          $this->createClient($clientAdapter);
     }
 
