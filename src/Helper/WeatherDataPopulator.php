@@ -23,6 +23,7 @@ class WeatherDataPopulator
         $record->Icon = $darkSkyDataPoint->getIcon();
         $record->MaxTemperature = $darkSkyDataPoint->getTemperature()->getMax();
         $record->MinTemperature = $darkSkyDataPoint->getTemperature()->getMin();
+        $record->FeelsLikeTemperature = $darkSkyDataPoint->getApparentTemperature()->getCurrent();
         $record->MoonPhase = $darkSkyDataPoint->getMoonPhase();
         $record->PrecipitationIntensity = $darkSkyDataPoint->getPrecipitation()->getIntensity();
         $record->PrecipitationProbablity = $darkSkyDataPoint->getPrecipitation()->getProbability();
@@ -34,6 +35,7 @@ class WeatherDataPopulator
 
         $record->WindSpeed = $darkSkyDataPoint->getWindSpeed();
         $record->WindBearing = $darkSkyDataPoint->getWindBearing();
+
         return $record;
     }
 

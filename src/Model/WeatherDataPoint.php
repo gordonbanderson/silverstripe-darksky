@@ -20,6 +20,7 @@ class WeatherDataPoint extends DataObject
             'partly-cloudy-night","unknown")',
         'MaxTemperature' => 'Float',
         'MinTemperature' => 'Float',
+        'FeelsLikeTemperature' => 'Float',
         'MoonPhase' => 'Float',
         'PrecipitationIntensity' => 'Float',
         'PrecipitationProbablity' => 'Float',
@@ -32,4 +33,14 @@ class WeatherDataPoint extends DataObject
     private static $has_one = [
         'Location' => WeatherLocation::class
     ];
+
+    public function Rounded($value, $precision = 0)
+    {
+        return round($value,$precision);
+    }
+
+    public function Percentage($value)
+    {
+        return 100*$value;
+    }
 }

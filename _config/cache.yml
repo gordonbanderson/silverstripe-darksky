@@ -1,0 +1,5 @@
+SilverStripe\Core\Injector\Injector:
+  Psr\SimpleCache\CacheInterface.darksky:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      namespace: "darksky"

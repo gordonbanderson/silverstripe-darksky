@@ -3,10 +3,10 @@
 namespace Suilven\DarkSky\ClientAdapters;
 
 use VertigoLabs\Overcast\ClientAdapterInterface;
+use GuzzleHttp\Client;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
-use VertigoLabs\Overcast\ClientAdapters\GuzzleClientAdapter;
 
-class CachedClientAdapter  implements ClientAdapterInterface
+class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterface
 {
     /**
      * @var Client
@@ -42,18 +42,8 @@ class CachedClientAdapter  implements ClientAdapterInterface
      * @param  [string] $url JSON service URL for the required data
      * @return {object}      Array or struct object decoded from returned or cached JSON data
      */
-    private  function getURLWithCaching($url) {
-        $cache = $this->getCache();
-        $cachekey = hash('ripemd160',$url);
-
-        if (!($response = $cache->get($cachekey))) {
-            $response = $this->guzzleClient->get($this->requestedUrl);
-            $cache->set($cachekey, $response);
-            error_log("CK MISS");
-        } else {
-            error_log("CK HIT");
-        };
-
+    private  function getURL($url) {
+        $response = $this->guzzleClient->get($this->requestedUrl);
         return $response;
     }
 
@@ -69,20 +59,61 @@ class CachedClientAdapter  implements ClientAdapterInterface
      *
      * @return array
      */
-    public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null)
+    public function getForecastWithCaching($latitude, $longitude, \DateTime $time = null, array $parameters = null)
     {
         $this->requestedUrl = $this->buildRequestURL($latitude, $longitude, $time, $parameters);
 
-        $response = $this->getURLWithCaching($this->requestedUrl);
 
-        $cacheDirectives = $this->buildCacheDirectives($response);
+        $url = $this->requestedUrl;
+        $cache = $this->getCache();
+        $cachekey = hash('ripemd160',$url . '0001');
 
-        $this->responseHeaders = [
-            'cache' => $cacheDirectives,
-            'responseTime' => (int)$response->getHeader('x-response-time'),
-            'apiCalls' => (int)$response->getHeader('x-forecast-api-calls')
-        ];
-        return json_decode($response->getBody(), true);
+        $body = '';
+
+        if (!($cachedResponse = $cache->get($cachekey))) {
+            $response = $this->getURL($this->requestedUrl);
+
+            $cacheDirectives = $this->buildCacheDirectives($response);
+
+            $this->responseHeaders = [
+                'cache' => $cacheDirectives,
+                'responseTime' => (int)$response->getHeader('x-response-time'),
+                'apiCalls' => (int)$response->getHeader('x-forecast-api-calls')
+            ];
+
+            $body = json_decode($response->getBody(), true);
+
+            $entry = [
+                'body' => $body,
+                'headers' => $this->responseHeaders
+            ];
+
+            // @todo make configurable
+            $cache->set($cachekey, $entry, 600);
+        } else {
+            $body = $cachedResponse['body'];
+            $this->responseHeaders = $cachedResponse['headers'];
+        };
+
+
+
+        return $body;
+    }
+
+    /**
+     * Returns the response data from the Dark Sky API in the
+     * form of an array.
+     *
+     * @param float $latitude
+     * @param float $longitude
+     * @param \DateTime $time
+     * @param array $parameters
+     *
+     * @return array
+     */
+    public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null)
+    {
+        return $this->getForecastWithCaching($latitude, $longitude,  $time, $parameters);
     }
 
     /**

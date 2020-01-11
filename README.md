@@ -280,9 +280,13 @@ Please see [contributing](CONTRIBUTING.md) for more information.
 ---|---
 [Colin Tucker](https://github.com/colintucker) | [Praxis Interactive](http://www.praxis.net.au)
 
+## Attribution
+### Weather Icons
+Fhatkul Karim, https://www.iconfinder.com/iconsets/weather-line-19
+
 ## License
 
-[BSD-3-Clause](LICENSE.md) &copy; Praxis Interactive
+[BSD-3-Clause](LICENSE.md)
 
 [silverstripe]: https://github.com/silverstripe/silverstripe-framework
 [webpack]: https://webpack.js.org
