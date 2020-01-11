@@ -1,1 +1,114 @@
-<svg xmlns="http://www.w3.org/2000/svg"><symbol id="sprite-clear-day" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" transform="translate(2 2)" fill="none" fill-rule="evenodd"><circle cx="14" cy="14" r="8"/><path d="M14 0v3m9.9 1.1l-2.122 2.122M28 14h-3m-1.1 9.9l-2.122-2.122M14 28v-3m-9.9-1.1l2.122-2.122M0 14h3m1.1-9.9l2.122 2.122" stroke-linecap="round"/></g></symbol><symbol id="sprite-clear-night" viewBox="0 0 32 32"><title/><g stroke="#979797" fill="none" fill-rule="evenodd"><path d="M12.589 3.768A12.942 12.942 0 0011 10c0 7.18 5.82 13 13 13 1.549 0 3.034-.27 4.411-.768A12.997 12.997 0 0117 29C9.82 29 4 23.18 4 16c0-5.631 3.58-10.426 8.589-12.232z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path fill="#D8D8D8" d="M12.25 6.392l-.147.06.012-.158-.103-.121.155-.038L12.25 6l.083.135.155.038-.103.12.012.16zm7.75.174l-.588.243.05-.634-.413-.484.618-.15L20 5l.333.542.618.149-.413.484.05.634zm-4.5 3.217l-.294.122.025-.318-.207-.242.31-.074L15.5 9l.166.271.31.074-.207.242.025.318zm.5-7.217l-.588.243.05-.634-.413-.484.618-.15L16 1l.333.542.618.149-.413.484.05.634z" transform="translate(4 3)"/></g></symbol><symbol id="sprite-cloudy" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd"><path d="M13 13a4 4 0 10-7.436 2.05"/><path d="M23.082 9.531A6.997 6.997 0 0017 6a6.994 6.994 0 00-5.876 3.194" stroke-linecap="round"/><g><path d="M13.144 14.034a6.533 6.533 0 101.767 10.561"/><path d="M13.463 22.793a8.4 8.4 0 10-1.263-6.522" stroke-linecap="round"/></g></g></symbol><symbol id="sprite-fog" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M13.144 12.034a6.533 6.533 0 00-8.587 8.954m22.571.119A8.4 8.4 0 1012.2 14.271M3 24h13.055M20 24h1.903M8 20h16m4.903 8H15.047m-3.405 0H10"/></g></symbol><symbol id="sprite-partly-cloudy-day" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd"><path d="M14.041 12.573a3.735 3.735 0 10-7.02 2.418" stroke-linecap="round"/><path d="M14.144 14.034a6.533 6.533 0 101.767 10.561"/><path d="M14.463 22.793a8.4 8.4 0 10-1.263-6.522M9.944 6.867V5m4.747 4.156l1.451-1.174M4.029 14.28l-1.819.42m2.986-5.545l-1.45-1.174" stroke-linecap="round"/></g></symbol><symbol id="sprite-partly-cloudy-night" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd"><path d="M20.062 22.393c1.242.394 2.565.607 3.938.607 1.549 0 3.034-.27 4.411-.768A12.997 12.997 0 0117 29C9.82 29 4 23.18 4 16c0-5.631 3.58-10.426 8.589-12.232a12.91 12.91 0 00-1.228 3.175" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.245 11.049a2.536 2.536 0 00-2.657-2.41 2.536 2.536 0 00-2.39 2.674c.026.476.179.914.425 1.284"/><path d="M19.811 8.65a2.45 2.45 0 00-2.194-1.133 2.45 2.45 0 00-1.998 1.234" stroke-linecap="round"/><g><path d="M16.871 11.918a4.187 4.187 0 00-1.857-.326c-2.357.124-4.164 2.17-4.039 4.574.126 2.401 2.139 4.249 4.495 4.125a4.216 4.216 0 002.923-1.402"/><path d="M17.385 17.74c1.065 1.424 2.778 2.305 4.661 2.206 3.03-.158 5.355-2.79 5.193-5.88-.162-3.087-2.749-5.463-5.778-5.304-2.626.137-4.723 2.136-5.129 4.678" stroke-linecap="round"/></g></g></symbol><symbol id="sprite-rain" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd"><path d="M12.64 6.506a6.74 6.74 0 101.823 10.897"/><path d="M12.97 15.544a8.667 8.667 0 10-1.303-6.73M19.912 22.113l-.845 1.813M17.8 26.645l-.845 1.812m-1.09-7.128l-.845 1.813m-1.268 2.718l-.845 1.813" stroke-linecap="round"/><g stroke-linecap="round"><path d="M10.912 22.113l-.845 1.813M8.8 26.645l-.845 1.812m-1.09-7.128l-.845 1.813M4.751 25.86l-.845 1.813"/></g></g></symbol><symbol id="sprite-sleet" viewBox="0 0 32 32"><title/><g fill="none" fill-rule="evenodd" stroke="#979797"><g stroke-width="2"><path d="M12.64 6.506a6.74 6.74 0 101.823 10.897"/><path d="M12.97 15.544a8.667 8.667 0 10-1.303-6.73" stroke-linecap="round"/></g><circle cx="14" cy="29" r="1"/><circle cx="22" cy="23" r="1"/><circle cx="8.5" cy="22.5" r="1"/><circle cx="18.5" cy="26.5" r="1"/><path fill="#D8D8D8" stroke-linecap="round" stroke-linejoin="round" d="M8 27l-1 1.732L8 27H6h2l-1-1.732L8 27l1-1.732L8 27h2-2l1 1.732zm7-4l-1 1.732L15 23h-2 2l-1-1.732L15 23l1-1.732L15 23h2-2l1 1.732zm7 5l-1 1.732L22 28h-2 2l-1-1.732L22 28l1-1.732L22 28h2-2l1 1.732z"/></g></symbol><symbol id="sprite-snow" viewBox="0 0 32 32"><title/><g transform="translate(3 3)" stroke="#979797" fill="none" fill-rule="evenodd"><path d="M9.286.929L13 3.714 16.714.93m8.357 8.357L22.286 13l2.785 3.714m-8.357 8.357L13 22.286 9.286 25.07M.929 16.714L3.714 13 .93 9.286" stroke-linecap="round" stroke-width="2"/><circle cx="13" cy="13" fill="#979797" r="1.857"/><path d="M13 0v26M0 13h26M3.714 3.714l18.572 18.572m-18.572 0L22.286 3.714" stroke-linecap="round" stroke-width="2"/></g></symbol><symbol id="sprite-wind" viewBox="0 0 32 32"><title/><g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M15 13a5 5 0 10-5-5M5 13h10M6 21h14m-3 3a3 3 0 103-3"/><g><path d="M24 17a5 5 0 10-.869-9.925M3 17h21"/></g></g></symbol></svg>
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="sprite-clear-day" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" transform="translate(2 2)" fill="none" fill-rule="evenodd">
+      <circle cx="14" cy="14" r="8"/>
+      <path
+        d="M14 0v3m9.9 1.1l-2.122 2.122M28 14h-3m-1.1 9.9l-2.122-2.122M14 28v-3m-9.9-1.1l2.122-2.122M0 14h3m1.1-9.9l2.122 2.122"
+        stroke-linecap="round"/>
+    </g>
+  </symbol>
+  <symbol id="sprite-clear-night" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" fill="none" fill-rule="evenodd">
+      <path
+        d="M12.589 3.768A12.942 12.942 0 0011 10c0 7.18 5.82 13 13 13 1.549 0 3.034-.27 4.411-.768A12.997 12.997 0 0117 29C9.82 29 4 23.18 4 16c0-5.631 3.58-10.426 8.589-12.232z"
+        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path
+            d="M12.25 6.392l-.147.06.012-.158-.103-.121.155-.038L12.25 6l.083.135.155.038-.103.12.012.16zm7.75.174l-.588.243.05-.634-.413-.484.618-.15L20 5l.333.542.618.149-.413.484.05.634zm-4.5 3.217l-.294.122.025-.318-.207-.242.31-.074L15.5 9l.166.271.31.074-.207.242.025.318zm.5-7.217l-.588.243.05-.634-.413-.484.618-.15L16 1l.333.542.618.149-.413.484.05.634z"
+            transform="translate(4 3)"/>
+    </g>
+  </symbol>
+  <symbol id="sprite-cloudy" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd">
+      <path d="M13 13a4 4 0 10-7.436 2.05"/>
+      <path d="M23.082 9.531A6.997 6.997 0 0017 6a6.994 6.994 0 00-5.876 3.194" stroke-linecap="round"/>
+      <g>
+        <path d="M13.144 14.034a6.533 6.533 0 101.767 10.561"/>
+        <path d="M13.463 22.793a8.4 8.4 0 10-1.263-6.522" stroke-linecap="round"/>
+      </g>
+    </g>
+  </symbol>
+  <symbol id="sprite-fog" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round">
+      <path
+        d="M13.144 12.034a6.533 6.533 0 00-8.587 8.954m22.571.119A8.4 8.4 0 1012.2 14.271M3 24h13.055M20 24h1.903M8 20h16m4.903 8H15.047m-3.405 0H10"/>
+    </g>
+  </symbol>
+  <symbol id="sprite-partly-cloudy-day" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd">
+      <path d="M14.041 12.573a3.735 3.735 0 10-7.02 2.418" stroke-linecap="round"/>
+      <path d="M14.144 14.034a6.533 6.533 0 101.767 10.561"/>
+      <path
+        d="M14.463 22.793a8.4 8.4 0 10-1.263-6.522M9.944 6.867V5m4.747 4.156l1.451-1.174M4.029 14.28l-1.819.42m2.986-5.545l-1.45-1.174"
+        stroke-linecap="round"/>
+    </g>
+  </symbol>
+  <symbol id="sprite-partly-cloudy-night" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd">
+      <path
+        d="M20.062 22.393c1.242.394 2.565.607 3.938.607 1.549 0 3.034-.27 4.411-.768A12.997 12.997 0 0117 29C9.82 29 4 23.18 4 16c0-5.631 3.58-10.426 8.589-12.232a12.91 12.91 0 00-1.228 3.175"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16.245 11.049a2.536 2.536 0 00-2.657-2.41 2.536 2.536 0 00-2.39 2.674c.026.476.179.914.425 1.284"/>
+      <path d="M19.811 8.65a2.45 2.45 0 00-2.194-1.133 2.45 2.45 0 00-1.998 1.234" stroke-linecap="round"/>
+      <g>
+        <path
+          d="M16.871 11.918a4.187 4.187 0 00-1.857-.326c-2.357.124-4.164 2.17-4.039 4.574.126 2.401 2.139 4.249 4.495 4.125a4.216 4.216 0 002.923-1.402"/>
+        <path
+          d="M17.385 17.74c1.065 1.424 2.778 2.305 4.661 2.206 3.03-.158 5.355-2.79 5.193-5.88-.162-3.087-2.749-5.463-5.778-5.304-2.626.137-4.723 2.136-5.129 4.678"
+          stroke-linecap="round"/>
+      </g>
+    </g>
+  </symbol>
+  <symbol id="sprite-rain" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd">
+      <path d="M12.64 6.506a6.74 6.74 0 101.823 10.897"/>
+      <path
+        d="M12.97 15.544a8.667 8.667 0 10-1.303-6.73M19.912 22.113l-.845 1.813M17.8 26.645l-.845 1.812m-1.09-7.128l-.845 1.813m-1.268 2.718l-.845 1.813"
+        stroke-linecap="round"/>
+      <g stroke-linecap="round">
+        <path d="M10.912 22.113l-.845 1.813M8.8 26.645l-.845 1.812m-1.09-7.128l-.845 1.813M4.751 25.86l-.845 1.813"/>
+      </g>
+    </g>
+  </symbol>
+  <symbol id="sprite-sleet" viewBox="0 0 32 32">
+    <title/>
+    <g fill="none" fill-rule="evenodd" stroke="#979797">
+      <g stroke-width="2">
+        <path d="M12.64 6.506a6.74 6.74 0 101.823 10.897"/>
+        <path d="M12.97 15.544a8.667 8.667 0 10-1.303-6.73" stroke-linecap="round"/>
+      </g>
+      <circle cx="14" cy="29" r="1"/>
+      <circle cx="22" cy="23" r="1"/>
+      <circle cx="8.5" cy="22.5" r="1"/>
+      <circle cx="18.5" cy="26.5" r="1"/>
+      <path fill="#D8D8D8" stroke-linecap="round" stroke-linejoin="round"
+            d="M8 27l-1 1.732L8 27H6h2l-1-1.732L8 27l1-1.732L8 27h2-2l1 1.732zm7-4l-1 1.732L15 23h-2 2l-1-1.732L15 23l1-1.732L15 23h2-2l1 1.732zm7 5l-1 1.732L22 28h-2 2l-1-1.732L22 28l1-1.732L22 28h2-2l1 1.732z"/>
+    </g>
+  </symbol>
+  <symbol id="sprite-snow" viewBox="0 0 32 32">
+    <title/>
+    <g transform="translate(3 3)" stroke="#979797" fill="none" fill-rule="evenodd">
+      <path
+        d="M9.286.929L13 3.714 16.714.93m8.357 8.357L22.286 13l2.785 3.714m-8.357 8.357L13 22.286 9.286 25.07M.929 16.714L3.714 13 .93 9.286"
+        stroke-linecap="round" stroke-width="2"/>
+      <circle cx="13" cy="13" fill="#979797" r="1.857"/>
+      <path d="M13 0v26M0 13h26M3.714 3.714l18.572 18.572m-18.572 0L22.286 3.714" stroke-linecap="round"
+            stroke-width="2"/>
+    </g>
+  </symbol>
+  <symbol id="sprite-wind" viewBox="0 0 32 32">
+    <title/>
+    <g stroke="#979797" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round">
+      <path d="M15 13a5 5 0 10-5-5M5 13h10M6 21h14m-3 3a3 3 0 103-3"/>
+      <g>
+        <path d="M24 17a5 5 0 10-.869-9.925M3 17h21"/>
+      </g>
+    </g>
+  </symbol>
+</svg>
