@@ -22,8 +22,13 @@ class WeatherDataPoint extends DataObject
         'MinTemperature' => 'Float',
         'FeelsLikeTemperature' => 'Float',
         'MoonPhase' => 'Float',
+
+        // this is mm per hours
         'PrecipitationIntensity' => 'Float',
         'PrecipitationProbablity' => 'Float',
+
+        //  note Is Precipitation Accumulation of use?
+
         'Visibility' => 'Float',
         'When' => DBDatetime::class,
         'WindSpeed' => 'Float',

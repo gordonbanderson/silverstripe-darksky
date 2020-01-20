@@ -89,7 +89,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
             ];
 
             // @todo make configurable
-            $cache->set($cachekey, $entry, 600);
+            $cache->set($cachekey, $entry, 3600);
         } else {
             $body = $cachedResponse['body'];
             $this->responseHeaders = $cachedResponse['headers'];
