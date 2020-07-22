@@ -87,20 +87,33 @@ class DarkSkyAPITest extends SapphireTest
         $this->assertEquals(1, WeatherLocation::get()->count());
         $this->assertEquals($location, WeatherLocation::get()->first());
 
-        foreach ($forecast->getDaily()->getData() as $dailyData) {
-            $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
-                $forecast->getLatitude(),
-                $forecast->getLongitude(),
-                $dailyData,
-            );
+        // test an arbitrary couple of days from the weekly forecast
+        $allDailyData = $forecast->getDaily()->getData();
+        $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
+            $forecast->getLatitude(),
+            $forecast->getLongitude(),
+            $allDailyData[0]
+        );
+        $this->assertEquals(0.01, $currentWeatherRecord->CloudCoverage);
+        $this->assertEquals(0.35, $currentWeatherRecord->MoonPhase);
+        $this->assertEquals(96.74, $currentWeatherRecord->MaxTemperature);
+        $this->assertEquals(75.61, $currentWeatherRecord->MinTemperature);
 
-            // @todo fix test
-            $this->assertEquals(555, $currentWeatherRecord->Latitude);
-        }
+        $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
+            $forecast->getLatitude(),
+            $forecast->getLongitude(),
+            $allDailyData[4]
+        );
+        $this->assertEquals(0.47, $currentWeatherRecord->CloudCoverage);
+        $this->assertEquals(0.49, $currentWeatherRecord->MoonPhase);
+        $this->assertEquals(99.03, $currentWeatherRecord->MaxTemperature);
+        $this->assertEquals(76.7, $currentWeatherRecord->MinTemperature);
+
+
 
         $this->assertEquals(1, WeatherLocation::get()->count());
         $nDataRecordsAtEnd = WeatherDataPoint::get()->count();
         $delta = $nDataRecordsAtEnd - $nDataRecordsAtStart;
-        $this->assertEquals(9, $delta);
+        $this->assertEquals(3, $delta);
     }
 }
