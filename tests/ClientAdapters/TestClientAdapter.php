@@ -37,8 +37,7 @@ class TestClientAdapter extends ClientAdapter implements ClientAdapterInterface
 
         $body = $json[0]['response']['body'];
 
-        $result = \json_decode($body, true);
-        return $result;
+        return \json_decode($body, true);
     }
 
 
