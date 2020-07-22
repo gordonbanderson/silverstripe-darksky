@@ -5,6 +5,7 @@ namespace Suilven\DarkSky\Helper;
 use Smindel\GIS\GIS;
 use Suilven\DarkSky\Model\WeatherDataPoint;
 use Suilven\DarkSky\Model\WeatherLocation;
+use VertigoLabs\Overcast\ValueObjects\DataPoint;
 
 class WeatherDataPopulator
 {

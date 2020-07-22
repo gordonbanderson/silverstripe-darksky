@@ -37,9 +37,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * @return array<string,string>
      */
     public function getForecastWithCaching(
-        float $latitude,
-        float $longitude,
-        ?\DateTime $time = null,
+         $latitude,
+         $longitude,
+         $time = null,
         ?array $parameters = null
     ): array {
         $this->requestedUrl = $this->buildRequestURL($latitude, $longitude, $time, $parameters);
@@ -82,15 +82,17 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
 
 
     /**
-     * @param array|null $parameters
+     * Returns the response data from the Dark Sky in the
+     * form of an array
+     *
+     * @param float $latitude
+     * @param float $longitude
+     * @param \DateTime $time
+     * @param array $parameters
+     *
      * @return array
      */
-    public function getForecast(
-        float $latitude,
-        float $longitude,
-        ?float $time = null,
-        ?array $parameters = null
-    ): array {
+    public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null) {
         return $this->getForecastWithCaching($latitude, $longitude, $time, $parameters);
     }
 
