@@ -3,12 +3,12 @@
 namespace Suilven\DarkSky\ClientAdapters;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
 use VertigoLabs\Overcast\ClientAdapterInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
 
 /**
  * Class CachedClientAdapter
+ *
  * @package Suilven\DarkSky\ClientAdapters
  *
  * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
@@ -46,12 +46,8 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * @param array<string,string> $parameters
      * @return array<string,string>
      */
-    public function getForecastWithCaching(
-         $latitude,
-         $longitude,
-         $time = null,
-        ?array $parameters = null
-    ): array {
+    public function getForecastWithCaching($latitude, $longitude, $time = null, ?array $parameters = null): array
+    {
         $this->requestedUrl = $this->buildRequestURL($latitude, $longitude, $time, $parameters);
 
 
@@ -97,12 +93,11 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      *
      * @param float $latitude
      * @param float $longitude
-     * @param \DateTime $time
      * @param array<string,string> $parameters
-     *
      * @return array<string,string>
      */
-    public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null) {
+    public function getForecast($latitude, $longitude, ?\DateTime $time = null, ?array $parameters = null): array
+    {
         return $this->getForecastWithCaching($latitude, $longitude, $time, $parameters);
     }
 
@@ -121,7 +116,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /**
      * Builds the cache directives from response headers by filtering them
      *
-     * @param Response $response
+     * @param \GuzzleHttp\Psr7\Response $response
      * @return array<string,string>
      */
     protected function buildCacheDirectives($response): array
@@ -238,7 +233,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      *
      * @return array<string,string>
      */
-    private function getURL()
+    private function getURL(): array
     {
         return $this->guzzleClient->get($this->requestedUrl);
     }

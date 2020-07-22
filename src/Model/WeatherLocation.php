@@ -6,7 +6,7 @@ use SilverStripe\ORM\DataObject;
 
 class WeatherLocation extends DataObject
 {
-    /** @var string  */
+    /** @var string */
     private static $table_name = 'SuilvenWeatherLocation';
 
     /** @var array<string,string> */

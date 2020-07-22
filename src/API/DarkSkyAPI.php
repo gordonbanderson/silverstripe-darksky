@@ -31,7 +31,6 @@ class DarkSkyAPI
     }
 
 
-
     public function getForecastAt(float $latitude, float $longitude): Forecast
     {
         return $this->client->getForecast($latitude, $longitude, null, ['units' => 'auto']);

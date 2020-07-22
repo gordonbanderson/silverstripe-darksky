@@ -15,7 +15,7 @@ use SilverStripe\ORM\FieldType\DBDatetime;
  */
 class WeatherDataPoint extends DataObject
 {
-    /** @var string  */
+    /** @var string */
     private static $table_name = 'SuilvenWeatherDataPoint';
 
     /** @var array<string,string> */
