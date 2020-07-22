@@ -35,16 +35,16 @@ matrix:
             env: 'DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1'
         -
             php: 7.4
-            env: PHPCS_TEST=1
+            env: 'PHPCS_TEST=1'
         -
             php: 7.4
-            env: DUPLICATE_CODE_CHECK=1
+            env: 'DUPLICATE_CODE_CHECK=1'
         -
             php: 7.4
-            env: LINT_CHECK=1
+            env: 'LINT_CHECK=1'
         -
             php: 7.4
-            env: PHPSTAN_TEST=1
+            env: 'PHPSTAN_TEST=1'
 install:
     - 'export UNIT_TESTING_CONFIG_ENABLED=1'
 before_script:
@@ -64,11 +64,9 @@ before_script:
 script:
     - 'if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit -d memory_limit=4G  tests/ '''' flush=1; fi'
     - 'if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit -d memory_limit=4G --coverage-clover=coverage.xml   tests/ '''' flush=1  ; fi'
-    - 'if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs --config-set ignore_errors_on_exit 1 && vendor/bin/phpcs --config-set ignore_warnings_on_exit 1 && vendor/bin/phpcs src/ tests/ ; fi'
-    - 'if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi'
+    - 'if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs --standard=ruleset.xml --extensions=php --tab-width=4 -sp src tests ; fi'
     - 'if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi'
     - 'if [[ $NPM_TEST ]]; then yarn run test; fi'
-    - 'if [[ $NPM_TEST ]]; then yarn run lint; fi'
     - 'if [[ $BEHAT_TEST ]]; then vendor/bin/behat @silverstripe-elemental; fi'
     - null
     - 'if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs --standard=ruleset.xml --extensions=php --tab-width=4 -sp src tests ; fi'
