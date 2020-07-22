@@ -2,7 +2,9 @@ FROM php:7.4-cli-buster
 
 RUN apt -y update && apt -y upgrade
 RUN apt search icu-cu
-RUN apt -y install figlet git zip unzip libicu-dev default-mysql-client
+RUN apt -y install figlet git zip unzip libicu-dev default-mysql-client apt-get install curl software-properties-common
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt -y install nodejs
 RUN docker-php-ext-install pdo_mysql \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl
