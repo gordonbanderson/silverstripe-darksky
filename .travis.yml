@@ -41,7 +41,6 @@ install:
   - 'composer global require hirak/prestissimo'
   - 'composer require --no-update silverstripe/recipe-cms:$INSTALLER_VERSION'
   - 'composer require --no-update manticoresoftware/manticoresearch-php:dev-master'
-  - 'git clone https://github.com/gordonbanderson/silverstripe-manticore-search.git'
   - 'composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile'
   - 'export UNIT_TESTING_CONFIG_ENABLED=1'
 before_script:
