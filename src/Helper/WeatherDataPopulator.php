@@ -1,19 +1,14 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Suilven\DarkSky\Helper;
 
-use Carbon\Carbon;
 use Smindel\GIS\GIS;
-use Smindel\GIS\ORM\FieldType\DBGeometry;
 use Suilven\DarkSky\Model\WeatherDataPoint;
 use Suilven\DarkSky\Model\WeatherLocation;
-use VertigoLabs\Overcast\ValueObjects\DataPoint;
 
 class WeatherDataPopulator
 {
-    /**
-     * @param DataPoint $darkSkyDataPoint
-     */
-    public function generatePopulatedRecord($darkSkyDataPoint)
+    public function generatePopulatedRecord(DataPoint $darkSkyDataPoint)
     {
         $record = new WeatherDataPoint();
         $record->CloudCoverage = $darkSkyDataPoint->getCloudCover();
@@ -39,6 +34,7 @@ class WeatherDataPopulator
         return $record;
     }
 
+
     public function createPopulatedRecordWithLocation($latitude, $longitude, $darkSkyDataPoint)
     {
         $weatherRecord = $this->generatePopulatedRecord($darkSkyDataPoint);
@@ -48,9 +44,9 @@ class WeatherDataPopulator
 
         $matchingLocations = WeatherLocation::get()->filter('Location:ST_Equals', $gis->ewkt);
 
-        /** @var WeatherLocation $location */
+        /** @var \Suilven\DarkSky\Model\WeatherLocation $location */
         $location = null;
-        if ($matchingLocations->count() == 0) {
+        if ($matchingLocations->count() === 0) {
             $location = new WeatherLocation();
             $location->Location = $gis->ewkt;
             $location->write();
@@ -59,7 +55,7 @@ class WeatherDataPopulator
         }
 
         $location->DataPoints()->add($weatherRecord);
+
         return $weatherRecord;
     }
-
 }

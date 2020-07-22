@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace Suilven\DarkSky\Model;
-
 
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -32,17 +30,19 @@ class WeatherDataPoint extends DataObject
         'Visibility' => 'Float',
         'When' => DBDatetime::class,
         'WindSpeed' => 'Float',
-        'WindBearing' => 'Int', // degrees
+        // degrees
+        'WindBearing' => 'Int',
     ];
 
     private static $has_one = [
-        'Location' => WeatherLocation::class
+        'Location' => WeatherLocation::class,
     ];
 
     public function Rounded($value, $precision = 0)
     {
-        return round($value,$precision);
+        return \round($value, $precision);
     }
+
 
     public function Percentage($value)
     {
