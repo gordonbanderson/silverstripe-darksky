@@ -3,6 +3,7 @@
 namespace Suilven\DarkSky\ClientAdapters;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use VertigoLabs\Overcast\ClientAdapterInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
 
@@ -33,6 +34,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Returns the response data from the Dark Sky API in the
      * form of an array.
      *
+     * @param float $latitude
+     * @param float $longitude
+     * @param \DateTime $time
      * @param array<string,string> $parameters
      * @return array<string,string>
      */
@@ -88,9 +92,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * @param float $latitude
      * @param float $longitude
      * @param \DateTime $time
-     * @param array $parameters
+     * @param array<string,string> $parameters
      *
-     * @return array
+     * @return array<string,string>
      */
     public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null) {
         return $this->getForecastWithCaching($latitude, $longitude, $time, $parameters);
@@ -100,7 +104,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /**
      * Returns the relevant response headers from the Dark Sky API.
      *
-     * @return array
+     * @return array<string,string>
      */
     public function getHeaders(): array
     {
@@ -109,9 +113,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
 
 
     /**
-     * Builds the cache directives from response headers.
+     * Builds the cache directives from response headers by filtering them
      *
-     * @param $response
+     * @param Response $response
      * @return array<string,string>
      */
     protected function buildCacheDirectives($response): array
@@ -144,8 +148,8 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * data of the header. When a parameter does not contain a value, but just
      * contains a key, this function will inject a key with a '' string value.
      *
-     * @param string|array $header Header to parse into components.
-     * @return array Returns the parsed header values.
+     * @param string|array<string,string> $header Header to parse into components.
+     * @return array<string,string> Returns the parsed header values.
      */
     protected function parseHeader($header): array
     {
@@ -184,8 +188,8 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Converts an array of header values that may contain comma separated
      * headers into an array of headers with no comma separated values.
      *
-     * @param string|array $header Header to normalize.
-     * @return array Returns the normalized header field values.
+     * @param string|array<string,string> $header Header to normalize.
+     * @return array<string,string> Returns the normalized header field values.
      */
     protected function normalizeHeader($header): array
     {
@@ -226,7 +230,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Obtain a JSON object utilising the API if needbe, but taking into account hit rates against
      * the API - documentation says not to repeat URLS more than every 10 mins
      *
-     * @return <array>
+     * @return array<string,string>
      */
     private function getURL()
     {
