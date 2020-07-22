@@ -12,6 +12,23 @@ use SilverStripe\ORM\FieldType\DBDatetime;
  *
  * These are methods to be used in templates
  * phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ * @property float $CurrentTemperature
+ * @property float $CloudCoverage
+ * @property float $DewPoint
+ * @property float $Humidity
+ * @property string $Icon
+ * @property float $MaxTemperature
+ * @property float $MinTemperature
+ * @property float $FeelsLikeTemperature
+ * @property float $MoonPhase
+ * @property float $PrecipitationIntensity
+ * @property float $PrecipitationProbablity
+ * @property float $Visibility
+ * @property string $When
+ * @property float $WindSpeed
+ * @property int $WindBearing
+ * @property int $LocationID
+ * @method \Suilven\DarkSky\Model\WeatherLocation Location()
  */
 class WeatherDataPoint extends DataObject
 {

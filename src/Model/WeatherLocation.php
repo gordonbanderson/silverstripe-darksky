@@ -4,6 +4,13 @@ namespace Suilven\DarkSky\Model;
 
 use SilverStripe\ORM\DataObject;
 
+/**
+ * Class \Suilven\DarkSky\Model\WeatherLocation
+ *
+ * @property string $Title
+ * @property string $Location
+ * @method \SilverStripe\ORM\DataList|\Suilven\DarkSky\Model\WeatherDataPoint[] DataPoints()
+ */
 class WeatherLocation extends DataObject
 {
     /** @var string */
