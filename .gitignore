@@ -28,3 +28,15 @@ Desktop.ini
 
 ### Docker Compose env ###
 .dockerenv
+
+### From SS install if testing locally ###
+app
+index.php
+resources
+.htaccess
+web.config
+
+### Vendor and commposer lock ###
+vendor
+composer.lock
+
