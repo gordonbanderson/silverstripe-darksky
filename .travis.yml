@@ -36,6 +36,10 @@ matrix:
 
 services:
   - mysql
+  - postgresql
+
+before_install:
+  - 'mysql -e ''CREATE DATABASE IF NOT EXISTS test;'''
 install:
   - 'composer validate'
   - 'composer global require hirak/prestissimo'
@@ -43,6 +47,7 @@ install:
   - 'composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile'
   - 'export UNIT_TESTING_CONFIG_ENABLED=1'
 before_script:
+  - 'psql -c ''create database travis_ci_test;'' -U postgres'
   - 'phpenv rehash'
   - 'phpenv config-rm xdebug.ini'
   - 'echo ''memory_limit = 2G'' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini'
