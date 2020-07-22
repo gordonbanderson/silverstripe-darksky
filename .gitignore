@@ -21,3 +21,10 @@ Desktop.ini
 ### Source Maps ###
 /**/*.js.map
 /**/*.css.map
+
+
+### SS .env file for Docker ###
+.env
+
+### Docker Compose env ###
+.dockerenv
