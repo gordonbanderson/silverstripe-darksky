@@ -15,6 +15,7 @@ use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
  *
  * These are disabled due to them breaking method signatures with relevant parent classes
  *
+ * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification
  * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
  * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
  */
@@ -99,13 +100,11 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      *
      * @param float $latitude
      * @param float $longitude
-     * @param \DateTime $time
-     * @phpstan-ignore-next-line 
+     * @phpstan-ignore-next-line
      * @param array|null $parameters
-     *
      * @return array<string,string>
      */
-    public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null)
+    public function getForecast($latitude, $longitude, ?\DateTime $time = null, ?array $parameters = null): array
     {
         return $this->getForecastWithCaching($latitude, $longitude, $time, $parameters);
     }
@@ -125,7 +124,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /**
      * Builds the cache directives from response headers by filtering them
      *
-     * @param ResponseInterface $response
+     * @param \Psr\Http\Message\ResponseInterface $response
      * @return array<string,string>
      */
     protected function buildCacheDirectives($response): array
@@ -239,8 +238,6 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /**
      * Obtain a JSON object utilising the API if needbe, but taking into account hit rates against
      * the API - documentation says not to repeat URLS more than every 10 mins
-     *
-     * @return ResponseInterface
      */
     private function getRequestedURL(): ResponseInterface
     {
