@@ -7,6 +7,12 @@ use GuzzleHttp\Psr7\Response;
 use VertigoLabs\Overcast\ClientAdapterInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
 
+/**
+ * Class CachedClientAdapter
+ * @package Suilven\DarkSky\ClientAdapters
+ *
+ * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+ */
 class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterface
 {
     /** @var \GuzzleHttp\Client */
