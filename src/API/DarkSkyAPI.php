@@ -4,12 +4,11 @@ namespace Suilven\DarkSky\API;
 
 use SilverStripe\Core\Config\Config;
 use Suilven\DarkSky\ClientAdapters\CachedClientAdapter;
-use Suilven\DarkSky\Interfaces\DarkSkyClientInterface;
 use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPI
 {
-    /** @var \Suilven\DarkSky\Interfaces\DarkSkyClientInterface */
+    /** @var \VertigoLabs\Overcast\Overcast */
     private $client;
 
     /**
@@ -17,7 +16,7 @@ class DarkSkyAPI
      */
     public function __construct(?ClientAdapter $clientAdapter = null)
     {
-        if (empty($clientAdapter)) {
+        if (\is_null($clientAdapter)) {
             $clientAdapter = new CachedClientAdapter();
         }
          $this->createClient($clientAdapter);
@@ -30,19 +29,20 @@ class DarkSkyAPI
     }
 
 
-    public function getForecastAt($latitude, $longitude)
+    /** @return \VertigoLabs\Overcast\Forecast */
+    public function getForecastAt(float $latitude, float $longitude): Forecast
     {
         return $this->client->getForecast($latitude, $longitude, null, ['units' => 'auto']);
     }
 
 
-    public function getNumberOfAPICalls()
+    public function getNumberOfAPICalls(): int
     {
         return $this->client->getApiCalls();
     }
 
 
-    private function getAPIKey()
+    private function getAPIKey(): string
     {
         return Config::inst()->get(DarkSkyAPI::class, 'api_key');
     }

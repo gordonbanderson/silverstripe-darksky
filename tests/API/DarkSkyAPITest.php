@@ -1,40 +1,32 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace Tests\Suilven\DarkSky\API;
 
-
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\ORM\DB;
-use Smindel\GIS\GIS;
 use Suilven\DarkSky\API\DarkSkyAPI;
 use Suilven\DarkSky\Helper\WeatherDataPopulator;
 use Suilven\DarkSky\Model\WeatherDataPoint;
 use Suilven\DarkSky\Model\WeatherLocation;
-use Tests\Suilven\DarkSky\Client\TestOvercastClient;
 use Tests\Suilven\DarkSky\ClientAdapters\TestClientAdapter;
-use VertigoLabs\Overcast\Forecast;
-use VertigoLabs\Overcast\Overcast;
-use VertigoLabs\Overcast\ValueObjects\DataPoint;
 
 class DarkSkyAPITest extends SapphireTest
 {
-    protected $ignoreHeaders = array(
+    protected $ignoreHeaders = [
         'Accept',
         'Connect-Time',
         'Total-Route-Time',
         'X-Request-Id',
-    );
+     ];
 
 
-    public function test_forecast_at_location()
+    public function testForecastAtLocation(): void
     {
         $testAdapter = new TestClientAdapter();
         $api = new DarkSkyAPI($testAdapter);
 
         // Lumpini park in Bangkok, data hardwired using the above test adapter
-        /** @var Forecast $forecast */
-        $forecast = $api->getForecastAt(13.7309428,100.5408634);
+        /** @var \VertigoLabs\Overcast\Forecast $forecast */
+        $forecast = $api->getForecastAt(13.7309428, 100.5408634);
 
 
 
@@ -47,7 +39,7 @@ class DarkSkyAPITest extends SapphireTest
         $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
             $forecast->getLatitude(),
             $forecast->getLongitude(),
-            $forecast->getCurrently()
+            $forecast->getCurrently(),
         );
 
 
@@ -70,10 +62,10 @@ class DarkSkyAPITest extends SapphireTest
 
         $dailyForecasts = $forecast->getDaily();
 
-        /** @var DataPoint $singleDayForecast */
+        /** @var \VertigoLabs\Overcast\ValueObjects\DataPoint $singleDayForecast */
          $singleDayForecast =$dailyForecasts->getData()[4];
 
-         /** @var WeatherDataPoint $singleDayRecord */
+         /** @var \Suilven\DarkSky\Model\WeatherDataPoint $singleDayRecord */
          $singleDayRecord = $populator->generatePopulatedRecord($singleDayForecast);
 
         $this->assertEquals(0.47, $singleDayRecord->CloudCoverage);
@@ -93,13 +85,17 @@ class DarkSkyAPITest extends SapphireTest
 
         $location = $currentWeatherRecord->Location;
         $this->assertEquals(1, WeatherLocation::get()->count());
+        $this->assertEquals($location, WeatherLocation::get()->first());
 
         foreach ($forecast->getDaily()->getData() as $dailyData) {
             $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
                 $forecast->getLatitude(),
                 $forecast->getLongitude(),
-                $dailyData
+                $dailyData,
             );
+
+            // @todo fix test
+            $this->assertEquals(555, $currentWeatherRecord->Latitude);
         }
 
         $this->assertEquals(1, WeatherLocation::get()->count());

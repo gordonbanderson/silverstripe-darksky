@@ -10,9 +10,16 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
 {
     /** @var \GuzzleHttp\Client */
     private $guzzleClient;
+
+    /** @var string|null */
     private $requestedUrl = null;
+
+    /** @var array<string,string> */
     private $responseHeaders = [];
 
+    /**
+     * CachedClientAdapter constructor.
+     */
     public function __construct(?Client $guzzleClient = null)
     {
         if ($guzzleClient === null) {
@@ -26,8 +33,8 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Returns the response data from the Dark Sky API in the
      * form of an array.
      *
-     * @param array $parameters
-     * @return array
+     * @param array<string,string> $parameters
+     * @return array<string,string>
      */
     public function getForecastWithCaching(
         float $latitude,
@@ -44,7 +51,8 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
 
         $body = '';
 
-        if (!($cachedResponse = $cache->get($cachekey))) {
+        $cachedResponse = $cache->get($cachekey);
+        if (!($cachedResponse)) {
             $response = $this->getURL($this->requestedUrl);
 
             $cacheDirectives = $this->buildCacheDirectives($response);
@@ -74,16 +82,13 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
 
 
     /**
-     * Returns the response data from the Dark Sky API in the
-     * form of an array.
-     *
-     * @param array $parameters
+     * @param array|null $parameters
      * @return array
      */
     public function getForecast(
         float $latitude,
         float $longitude,
-        ?\DateTime $time = null,
+        ?float $time = null,
         ?array $parameters = null
     ): array {
         return $this->getForecastWithCaching($latitude, $longitude, $time, $parameters);
@@ -105,7 +110,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Builds the cache directives from response headers.
      *
      * @param $response
-     * @return array<string>
+     * @return array<string,string>
      */
     protected function buildCacheDirectives($response): array
     {
@@ -219,10 +224,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Obtain a JSON object utilising the API if needbe, but taking into account hit rates against
      * the API - documentation says not to repeat URLS more than every 10 mins
      *
-     * @param [string] $url JSON service URL for the required data
-     * @return {object} Array or struct object decoded from returned or cached JSON data
+     * @return <array>
      */
-    private function getURL($url)
+    private function getURL()
     {
         return $this->guzzleClient->get($this->requestedUrl);
     }

@@ -5,10 +5,20 @@ namespace Suilven\DarkSky\Model;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDatetime;
 
+/**
+ * Class WeatherDataPoint
+ *
+ * @package Suilven\DarkSky\Model
+ *
+ * These are methods to be used in templates
+ * phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 class WeatherDataPoint extends DataObject
 {
+    /** @var string  */
     private static $table_name = 'SuilvenWeatherDataPoint';
 
+    /** @var array<string,string> */
     private static $db = [
         'CurrentTemperature' => 'Float',
         'CloudCoverage' => 'Float',
@@ -34,18 +44,25 @@ class WeatherDataPoint extends DataObject
         'WindBearing' => 'Int',
     ];
 
+    /** @var array<string,string> */
     private static $has_one = [
         'Location' => WeatherLocation::class,
     ];
 
-    public function Rounded($value, $precision = 0)
+
+    /**
+     * @param float $value the number to round
+     * @param int $precision the number of decimal places
+     */
+    public function Rounded(float $value, int $precision = 0): float
     {
         return \round($value, $precision);
     }
 
 
-    public function Percentage($value)
+    /** @return float the fraction as a percentage */
+    public function Percentage(float $fraction): float
     {
-        return 100*$value;
+        return 100*$fraction;
     }
 }

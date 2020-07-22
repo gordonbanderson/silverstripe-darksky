@@ -8,7 +8,8 @@ use Suilven\DarkSky\Model\WeatherLocation;
 
 class WeatherDataPopulator
 {
-    public function generatePopulatedRecord(DataPoint $darkSkyDataPoint)
+    /** @param \Suilven\DarkSky\Helper\DataPoint $darkSkyDataPoint data from dark sky */
+    public function generatePopulatedRecord(DataPoint $darkSkyDataPoint): WeatherDataPoint
     {
         $record = new WeatherDataPoint();
         $record->CloudCoverage = $darkSkyDataPoint->getCloudCover();
@@ -35,8 +36,12 @@ class WeatherDataPopulator
     }
 
 
-    public function createPopulatedRecordWithLocation($latitude, $longitude, $darkSkyDataPoint)
-    {
+    /** @throws \SilverStripe\ORM\ValidationException */
+    public function createPopulatedRecordWithLocation(
+        float $latitude,
+        float $longitude,
+        DataPoint $darkSkyDataPoint
+    ): WeatherDataPoint {
         $weatherRecord = $this->generatePopulatedRecord($darkSkyDataPoint);
         $weatherRecord->write();
 
