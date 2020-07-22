@@ -274,6 +274,16 @@ Please use the [GitHub issue tracker][issues] for bug reports and feature reques
 Your contributions are gladly welcomed to help make this project better.
 Please see [contributing](CONTRIBUTING.md) for more information.
 
+## Docker Build
+```
+sdc build --no-cache --build-arg MARIADB_ROOT_PASSWORD=your_password --build-arg MARIADB_PASSWORD=your_password  database
+
+mysql --user=root --password=root66 --host=database
+ GRANT ALL PRIVILEGES ON *.* TO 'docker'@'%';
+mysql --user=docker --password=docker --host=database
+prime-module-for-testing
+```
+
 ## Maintainers
 
 [![Colin Tucker](https://avatars3.githubusercontent.com/u/1853705?s=144)](https://github.com/colintucker) | [![Praxis Interactive](https://avatars2.githubusercontent.com/u/1782612?s=144)](http://www.praxis.net.au)
