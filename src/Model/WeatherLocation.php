@@ -9,7 +9,7 @@ use SilverStripe\ORM\DataObject;
  *
  * @property string $Title
  * @property string $Location
- * @method \SilverStripe\ORM\DataList|\Suilven\DarkSky\Model\WeatherDataPoint[] DataPoints()
+ * @method \SilverStripe\ORM\DataList|array<\Suilven\DarkSky\Model\WeatherDataPoint> DataPoints()
  */
 class WeatherLocation extends DataObject
 {

@@ -5,7 +5,6 @@ namespace Suilven\DarkSky\API;
 use SilverStripe\Core\Config\Config;
 use Suilven\DarkSky\ClientAdapters\CachedClientAdapter;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
-use VertigoLabs\Overcast\Forecast;
 use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPI
@@ -25,13 +24,14 @@ class DarkSkyAPI
     }
 
 
-    public function setClient(DarkSkyClientInterface $newClient): void
+    public function setClient(ClientAdapter $newClientAdaptor): void
     {
-        $this->client = $newClient;
+        $this->createClient($newClientAdaptor);
     }
 
 
-    public function getForecastAt(float $latitude, float $longitude): Forecast
+    /** @return array<string,string> */
+    public function getForecastAt(float $latitude, float $longitude): array
     {
         return $this->client->getForecast($latitude, $longitude, null, ['units' => 'auto']);
     }

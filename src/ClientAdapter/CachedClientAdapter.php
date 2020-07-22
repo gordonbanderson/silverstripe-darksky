@@ -3,6 +3,7 @@
 namespace Suilven\DarkSky\ClientAdapters;
 
 use GuzzleHttp\Client;
+use Psr\SimpleCache\CacheInterface;
 use VertigoLabs\Overcast\ClientAdapterInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
 
@@ -219,9 +220,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /**
      * Centralised method to get the cache for open weather map data
      *
-     * @return \Suilven\DarkSky\ClientAdapters\SS_Cache SilverStripe cache object
+     * @return \Psr\SimpleCache\CacheInterface SilverStripe cache object
      */
-    private function getCache(): SS_Cache
+    private function getCache(): CacheInterface
     {
         return \SilverStripe\Core\Injector\Injector::inst()->get(\Psr\SimpleCache\CacheInterface::class . '.darksky');
     }

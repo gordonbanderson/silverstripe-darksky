@@ -9,7 +9,12 @@ use VertigoLabs\Overcast\ValueObjects\DataPoint;
 
 class WeatherDataPopulator
 {
-    /** @param \Suilven\DarkSky\Helper\DataPoint $darkSkyDataPoint data from dark sky */
+    /**
+     * Store data from Dark Sky locally
+     *
+     * @param \VertigoLabs\Overcast\ValueObjects\DataPoint $darkSkyDataPoint raw data from Dark Sky
+     * @phpstan-ignore-next-line
+     */
     public function generatePopulatedRecord(DataPoint $darkSkyDataPoint): WeatherDataPoint
     {
         $record = new WeatherDataPoint();
@@ -37,7 +42,10 @@ class WeatherDataPopulator
     }
 
 
-    /** @throws \SilverStripe\ORM\ValidationException */
+    /**
+     * @throws \SilverStripe\ORM\ValidationException
+     * @phpstan-ignore-next-line
+     */
     public function createPopulatedRecordWithLocation(
         float $latitude,
         float $longitude,
@@ -50,7 +58,7 @@ class WeatherDataPopulator
 
         $matchingLocations = WeatherLocation::get()->filter('Location:ST_Equals', $gis->ewkt);
 
-        /** @var \Suilven\DarkSky\Model\WeatherLocation $location */
+        /** @var \Suilven\DarkSky\Model\WeatherLocation $location @phpstan-ignore-next-line */
         $location = null;
         if ($matchingLocations->count() === 0) {
             $location = new WeatherLocation();
@@ -60,6 +68,8 @@ class WeatherDataPopulator
             $location = $matchingLocations->first();
         }
 
+        // This is defined by @method signature
+        // @phpstan-ignore-next-line
         $location->DataPoints()->add($weatherRecord);
 
         return $weatherRecord;
