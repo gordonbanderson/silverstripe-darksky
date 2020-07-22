@@ -45,6 +45,8 @@ matrix:
         -
             php: 7.4
             env: PHPSTAN_TEST=1
+install:
+    - 'export UNIT_TESTING_CONFIG_ENABLED=1'
 before_script:
     - 'psql -c ''create database travis_ci_test;'' -U postgres'
     - 'phpenv rehash'

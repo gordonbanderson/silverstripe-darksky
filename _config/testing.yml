@@ -1,0 +1,10 @@
+---
+Name: darksky-test
+After: silverstripe-darksky
+Only:
+  envvarset:
+    - UNIT_TESTING_CONFIG_ENABLED
+---
+
+Suilven\DarkSky\API\DarkSkyAPI:
+  api_key: 'PRETEND_TEST_KEY'
