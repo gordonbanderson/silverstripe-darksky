@@ -3,6 +3,7 @@
 namespace Suilven\DarkSky\ClientAdapters;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
 use VertigoLabs\Overcast\ClientAdapterInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
@@ -12,7 +13,10 @@ use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
  *
  * @package Suilven\DarkSky\ClientAdapters
  *
+ * These are disabled due to them breaking method signatures with relevant parent classes
+ *
  * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+ * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
  */
 class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterface
 {
@@ -22,7 +26,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /** @var string|null */
     private $requestedUrl = null;
 
-    /** @var array<string,string> */
+    /** @var array<string,mixed> */
     private $responseHeaders = [];
 
     /**
@@ -49,28 +53,29 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      */
     public function getForecastWithCaching($latitude, $longitude, $time = null, ?array $parameters = null): array
     {
+        // build the URL for Dark Sky
         $this->requestedUrl = $this->buildRequestURL($latitude, $longitude, $time, $parameters);
 
-
-        $url = $this->requestedUrl;
         $cache = $this->getCache();
-        $cachekey = \hash('ripemd160', $url . '0001');
+        $cachekey = \hash('ripemd160', $this->requestedUrl . '0001');
 
         $body = '';
 
         $cachedResponse = $cache->get($cachekey);
-        if (!($cachedResponse)) {
-            $response = $this->getURL($this->requestedUrl);
+        if (\is_null($cachedResponse)) {
+            $response = $this->getRequestedURL();
 
             $cacheDirectives = $this->buildCacheDirectives($response);
 
             $this->responseHeaders = [
                 'cache' => $cacheDirectives,
-                'responseTime' => (int)$response->getHeader('x-response-time'),
-                'apiCalls' => (int)$response->getHeader('x-forecast-api-calls'),
+                'responseTime' => \intval($response->getHeader('x-response-time')),
+                'apiCalls' => \intval($response->getHeader('x-forecast-api-calls')),
             ];
 
-            $body = \json_decode($response->getBody(), true);
+            /** @var string $responseBody PHPStan fails here without defining the response body as a string */
+            $responseBody = $response->getBody();
+            $body = \json_decode($responseBody, true);
 
             $entry = [
                 'body' => $body,
@@ -94,10 +99,13 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      *
      * @param float $latitude
      * @param float $longitude
-     * @param array<string,string> $parameters
+     * @param \DateTime $time
+     * @phpstan-ignore-next-line 
+     * @param array|null $parameters
+     *
      * @return array<string,string>
      */
-    public function getForecast($latitude, $longitude, ?\DateTime $time = null, ?array $parameters = null): array
+    public function getForecast($latitude, $longitude, \DateTime $time = null, array $parameters = null)
     {
         return $this->getForecastWithCaching($latitude, $longitude, $time, $parameters);
     }
@@ -117,7 +125,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
     /**
      * Builds the cache directives from response headers by filtering them
      *
-     * @param \GuzzleHttp\Psr7\Response $response
+     * @param ResponseInterface $response
      * @return array<string,string>
      */
     protected function buildCacheDirectives($response): array
@@ -151,7 +159,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * contains a key, this function will inject a key with a '' string value.
      *
      * @param string|array<string,string> $header Header to parse into components.
-     * @return array<string,string> Returns the parsed header values.
+     * @return array<int,array<int|string, string>> Returns the parsed header values.
      */
     protected function parseHeader($header): array
     {
@@ -172,7 +180,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
                     $part[] = \trim($m[0], $trimmed);
                 }
             }
-            if (!$part) {
+            if ($part === []) {
                 continue;
             }
 
@@ -191,7 +199,7 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * headers into an array of headers with no comma separated values.
      *
      * @param string|array<string,string> $header Header to normalize.
-     * @return array<string,string> Returns the normalized header field values.
+     * @return array<string> Returns the normalized header field values.
      */
     protected function normalizeHeader($header): array
     {
@@ -232,9 +240,9 @@ class CachedClientAdapter extends ClientAdapter implements ClientAdapterInterfac
      * Obtain a JSON object utilising the API if needbe, but taking into account hit rates against
      * the API - documentation says not to repeat URLS more than every 10 mins
      *
-     * @return array<string,string>
+     * @return ResponseInterface
      */
-    private function getURL(): array
+    private function getRequestedURL(): ResponseInterface
     {
         return $this->guzzleClient->get($this->requestedUrl);
     }
