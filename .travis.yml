@@ -35,16 +35,16 @@ matrix:
             env: 'DB=MYSQL INSTALLER_VERSION=4.x-dev PHPCS_TEST=1'
         -
             php: 7.4
-            env: 'PHPCS_TEST=1'
+            env: 'PHPCS_TEST=1 INSTALLER_VERSION=4.4'
         -
             php: 7.4
-            env: 'DUPLICATE_CODE_CHECK=1'
+            env: 'DUPLICATE_CODE_CHECK=1 INSTALLER_VERSION=4.4'
         -
             php: 7.4
-            env: 'LINT_CHECK=1'
+            env: 'LINT_CHECK=1 INSTALLER_VERSION=4.4'
         -
             php: 7.4
-            env: 'PHPSTAN_TEST=1'
+            env: 'PHPSTAN_TEST=1 INSTALLER_VERSION=4,4'
 
 install:
   - 'composer validate'
