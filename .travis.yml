@@ -1,57 +1,61 @@
 language: php
-dist: bionic
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-matrix:
-  include:
-    -
-      php: 7.4
-      env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
-    # Temporarily commented out as I cannot figure out how to get Page.php and PageController.php included
-    -
-        php: 7.4
-        env: 'INSTALLER_VERSION=4.5 PHPSTAN_TEST=1'
-    -
-      php: 7.1
-      env: 'INSTALLER_VERSION=4.4 PHPUNIT_TEST=1'
-    -
-      php: 7.2
-      env: 'INSTALLER_VERSION=4.4 PHPUNIT_COVERAGE_TEST=1'
-    -
-      php: 7.3
-      env: 'INSTALLER_VERSION=4.5 PHPUNIT_TEST=1'
-    -
-      php: 7.4
-      env: 'INSTALLER_VERSION=4.5.x-dev PHPUNIT_TEST=1'
-    -
-      php: 7.4
-      env: INSTALLER_VERSION=4.5 DUPLICATE_CODE_CHECK=1
-    -
-      php: 7.4
-      env: INSTALLER_VERSION=4.5 PHPCS_TEST=1
-    -
-      php: 7.4
-      env: INSTALLER_VERSION=4.5 LINT_CHECK=1
+
+dist: xenial
 
 services:
   - mysql
-  - postgresql
 
-before_install:
-  - 'mysql -e ''CREATE DATABASE IF NOT EXISTS test;'''
-install:
-  - 'composer validate'
-  - 'composer global require hirak/prestissimo'
-  - 'composer require --no-update silverstripe/recipe-cms:$INSTALLER_VERSION'
-  - 'composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile'
-  - 'export UNIT_TESTING_CONFIG_ENABLED=1'
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+addons:
+  postgresql: 9.6
+  apt:
+    packages:
+      - postgresql-9.6-postgis-2.3
+env:
+  global:
+    - COMPOSER_ROOT_VERSION=4.x-dev
+
+matrix:
+  include:
+    - php: 7.1
+      env: DB=PGSQL RECIPE_VERSION=4.3.x-dev  PHPUNIT_TEST=1
+    - php: 7.2
+      env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
+    - php: 7.3
+      env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_COVERAGE_TEST=1
+    - php: 7.3
+      env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
+    - php: 7.3
+      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
+    - php: 7.3
+      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1
+
 before_script:
-  - 'psql -c ''create database travis_ci_test;'' -U postgres'
-  - 'phpenv rehash'
-  - 'phpenv config-rm xdebug.ini'
-  - 'echo ''memory_limit = 2G'' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini'
-  - 'if [[ $DUPLICATE_CODE_CHECK ]]; then sudo apt remove -y nodejs && curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh && sudo bash nodesource_setup.sh && sudo apt install -y build-essential nodejs && which npm && npm install jscpd@3.2.1  ;fi'
+  - psql -c 'create database travis_ci_test;' -U postgres
+  # Init PHP
+  - phpenv rehash
+  - phpenv config-rm xdebug.ini
+  - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+
+  # Install composer dependencies
+  - composer validate # --strict here?
+  - composer require silverstripe/recipe-cms:"$RECIPE_VERSION" silverstripe/recipe-testing:^1 --no-update
+  - composer require --no-update silverstripe/widgets
+  - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:4.x-dev; fi;
+  - if [[ $DB == PGSQL ]]; then composer require silverstripe/postgresql:^2 --no-update; fi
+  - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+
+
+  # Run dev/build
+  - vendor/bin/sake dev/build flush=all
+
+  # Dump constants for debug
+  - php vendor/silverstripe/framework/tests/dump_constants.php
+
 script:
   - 'if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit tests '''' flush=all; fi'
   - 'if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit tests --coverage-clover=coverage.xml '''' flush=all; fi'
