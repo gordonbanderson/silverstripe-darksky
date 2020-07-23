@@ -1,19 +1,15 @@
 language: php
 
-dist: xenial
+dist: bionic
 
 services:
   - mysql
+  - postgresql
 
 cache:
   directories:
     - $HOME/.composer/cache/files
 
-addons:
-  postgresql: 9.6
-  apt:
-    packages:
-      - postgresql-9.6-postgis-2.3
 env:
   global:
     - COMPOSER_ROOT_VERSION=4.x-dev
