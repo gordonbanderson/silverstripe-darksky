@@ -9,9 +9,9 @@ matrix:
       php: 7.4
       env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
     # Temporarily commented out as I cannot figure out how to get Page.php and PageController.php included
-    #-
-    #    php: 7.4
-    #    env: 'INSTALLER_VERSION=4.5 PHPSTAN_TEST=1'
+    -
+        php: 7.4
+        env: 'INSTALLER_VERSION=4.5 PHPSTAN_TEST=1'
     -
       php: 7.1
       env: 'INSTALLER_VERSION=4.4 PHPUNIT_TEST=1'
