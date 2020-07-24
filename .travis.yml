@@ -30,7 +30,7 @@ matrix:
       env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1
 
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
   - psql -c 'create database travis_ci_test;' -U postgres
 
 before_script:
@@ -41,7 +41,19 @@ before_script:
   - 'export UNIT_TESTING_CONFIG_ENABLED=1'
   - pwd
   - ls -al
+  - echo 'SS_BASE_URL="http://localhost"' > .env
+  - echo 'SS_DATABASE_CLASS="MySQLPDODatabase"' >> .env
+  - echo 'SS_DATABASE_NAME="travis_ci_test"' >> .env
+  - echo 'SS_DATABASE_USERNAME="root"' >> .env
+  - echo 'SS_DATABASE_PASSWORD=""' >> .env
+  - echo 'SS_DATABASE_SERVER="localhost"' >> .env
   - cat .env
+
+
+
+
+
+
 
 
 
