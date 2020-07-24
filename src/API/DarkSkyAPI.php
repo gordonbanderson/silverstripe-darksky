@@ -1,62 +1,57 @@
-<?php
-
+<?php declare(strict_types = 1);
 
 namespace Suilven\DarkSky\API;
 
-
 use SilverStripe\Core\Config\Config;
-use Suilven\DarkSky\Client\OvercastClient;
-use Suilven\DarkSky\Client\TestOvercastClient;
 use Suilven\DarkSky\ClientAdapters\CachedClientAdapter;
-use Suilven\DarkSky\Interfaces\DarkSkyClientInterface;
 use VertigoLabs\Overcast\ClientAdapters\ClientAdapter;
+use VertigoLabs\Overcast\Forecast;
 use VertigoLabs\Overcast\Overcast;
 
 class DarkSkyAPI
 {
-    /**
-     * @var DarkSkyClientInterface
-     */
+    /** @var \VertigoLabs\Overcast\Overcast */
     private $client;
 
     /**
      * DarkSkyAPI constructor.
-     * @param ClientAdapter|null $clientAdapter
      */
-    public function __construct($clientAdapter = null)
+    public function __construct(?ClientAdapter $clientAdapter = null)
     {
-        if (empty($clientAdapter)) {
+        if (\is_null($clientAdapter)) {
             $clientAdapter = new CachedClientAdapter();
         }
          $this->createClient($clientAdapter);
     }
 
-    private function getAPIKey()
+
+    public function setClient(ClientAdapter $newClientAdaptor): void
     {
-        return Config::inst()->get(DarkSkyAPI::class, 'api_key');
+        $this->createClient($newClientAdaptor);
     }
 
-    /**
-     * @param ClientAdapter|null $clientAdapter
-     */
-    private function createClient($clientAdapter = null)
-    {
-        $apiKey = $this->getAPIKey();
-        $this->client = $clientAdapter === null ? new Overcast($apiKey) : new Overcast($apiKey, $clientAdapter);
-    }
 
-    public function setClient(DarkSkyClientInterface $newClient)
-    {
-        $this->client = $newClient;
-    }
-
-    public function getForecastAt($latitude, $longitude)
+    public function getForecastAt(float $latitude, float $longitude): Forecast
     {
         return $this->client->getForecast($latitude, $longitude, null, ['units' => 'auto']);
     }
 
-    public function getNumberOfAPICalls()
+
+    public function getNumberOfAPICalls(): int
     {
         return $this->client->getApiCalls();
+    }
+
+
+    private function getAPIKey(): string
+    {
+        return Config::inst()->get(DarkSkyAPI::class, 'api_key');
+    }
+
+
+    private function createClient(?ClientAdapter $clientAdapter = null): void
+    {
+        $apiKey = $this->getAPIKey();
+        $this->client = $clientAdapter === null ? new Overcast($apiKey) : new Overcast($apiKey, $clientAdapter);
     }
 }

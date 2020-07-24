@@ -1,41 +1,60 @@
 {
-    "name": "suilven/silverstripe-darksky",
-    "type": "silverstripe-vendormodule",
-    "description": "Use the DarkSky API to render weather on your SilverStripe website.",
-    "homepage": "https://github.com/suilven/silverstripe-darksky",
-    "keywords": [
-        "weather",
-        "historical",
-        "Dark",
-        "Sky",
-        "DarkSky"
-    ],
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Gordon Anderson",
-            "role": "Developer",
-            "email": "gordon.b.anderson@gmail.com",
-            "homepage": "http://www.gordonbanderson.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.6.0",
-        "silverstripe/cms": "^4@dev",
-        "vertigolabs/overcast": "^1.1",
-        "silverstripe/recipe-cms": "4.x-dev",
-        "smindel/silverstripe-gis": "^1.4",
-        "nesbot/carbon": "^1",
-        "guzzlehttp/guzzle": "^6"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^5.7"
-    },
-    "autoload": {
-        "psr-4": {
-            "Suilven\\DarkSky\\": "src/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+  "name": "suilven\/silverstripe-darksky",
+  "type": "silverstripe-vendormodule",
+  "description": "Use the DarkSky API to render weather on your SilverStripe website.",
+  "keywords": [
+    "weather",
+    "historical",
+    "Dark",
+    "Sky",
+    "DarkSky"
+  ],
+  "homepage": "https:\/\/github.com\/suilven\/silverstripe-darksky",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Gordon Anderson",
+      "email": "gordon.b.anderson@gmail.com",
+      "homepage": "http:\/\/www.gordonbanderson.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "guzzlehttp\/guzzle": "^6",
+    "nesbot\/carbon": "^1",
+    "silverstripe\/cms": "^4@dev",
+    "silverstripe\/recipe-cms": "^4@dev",
+    "smindel\/silverstripe-gis": "^1.4",
+    "vertigolabs\/overcast": "^1.1"
+  },
+  "require-dev": {
+    "ergebnis\/composer-normalize": "^2.6",
+    "php-parallel-lint\/php-console-highlighter": "^0.5.0",
+    "php-parallel-lint\/php-parallel-lint": "^1.2",
+    "phpstan\/extension-installer": "^1.0",
+    "phpstan\/phpstan-strict-rules": "^0.12.4",
+    "phpunit\/phpunit": "^5.7",
+    "slevomat\/coding-standard": "^6.3",
+    "symbiote\/silverstripe-phpstan": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Suilven\\DarkSky\\": "src\/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Suilven\\DarkSky\\Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "checkCode": "composer checkcs && composer lint && composer phpstan",
+    "checkcs": "vendor\/bin\/phpcs --standard=ruleset.xml --extensions=php --tab-width=4 -sp src tests",
+    "fixcs": "vendor\/bin\/phpcbf --standard=ruleset.xml --extensions=php --tab-width=4 -sp src tests",
+    "lint": "vendor\/bin\/parallel-lint src\/ tests\/",
+    "phpstan": "vendor\/bin\/phpstan analyse --level=6 -c tests\/phpstan.neon src\/"
+  }
 }

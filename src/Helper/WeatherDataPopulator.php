@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Suilven\DarkSky\Helper;
 
-use Carbon\Carbon;
 use Smindel\GIS\GIS;
-use Smindel\GIS\ORM\FieldType\DBGeometry;
 use Suilven\DarkSky\Model\WeatherDataPoint;
 use Suilven\DarkSky\Model\WeatherLocation;
 use VertigoLabs\Overcast\ValueObjects\DataPoint;
@@ -11,9 +10,12 @@ use VertigoLabs\Overcast\ValueObjects\DataPoint;
 class WeatherDataPopulator
 {
     /**
-     * @param DataPoint $darkSkyDataPoint
+     * Store data from Dark Sky locally
+     *
+     * @param \VertigoLabs\Overcast\ValueObjects\DataPoint $darkSkyDataPoint raw data from Dark Sky
+     * @phpstan-ignore-next-line
      */
-    public function generatePopulatedRecord($darkSkyDataPoint)
+    public function generatePopulatedRecord(DataPoint $darkSkyDataPoint): WeatherDataPoint
     {
         $record = new WeatherDataPoint();
         $record->CloudCoverage = $darkSkyDataPoint->getCloudCover();
@@ -39,8 +41,16 @@ class WeatherDataPopulator
         return $record;
     }
 
-    public function createPopulatedRecordWithLocation($latitude, $longitude, $darkSkyDataPoint)
-    {
+
+    /**
+     * @throws \SilverStripe\ORM\ValidationException
+     * @phpstan-ignore-next-line
+     */
+    public function createPopulatedRecordWithLocation(
+        float $latitude,
+        float $longitude,
+        DataPoint $darkSkyDataPoint
+    ): WeatherDataPoint {
         $weatherRecord = $this->generatePopulatedRecord($darkSkyDataPoint);
         $weatherRecord->write();
 
@@ -48,9 +58,9 @@ class WeatherDataPopulator
 
         $matchingLocations = WeatherLocation::get()->filter('Location:ST_Equals', $gis->ewkt);
 
-        /** @var WeatherLocation $location */
+        /** @var \Suilven\DarkSky\Model\WeatherLocation $location @phpstan-ignore-next-line */
         $location = null;
-        if ($matchingLocations->count() == 0) {
+        if ($matchingLocations->count() === 0) {
             $location = new WeatherLocation();
             $location->Location = $gis->ewkt;
             $location->write();
@@ -58,8 +68,10 @@ class WeatherDataPopulator
             $location = $matchingLocations->first();
         }
 
+        // This is defined by @method signature
+        // @phpstan-ignore-next-line
         $location->DataPoints()->add($weatherRecord);
+
         return $weatherRecord;
     }
-
 }
