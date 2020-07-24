@@ -16,9 +16,10 @@ env:
 
 matrix:
   include:
-    -
-      php: 7.2
-      env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
+    # This fails with an internal error on Travis, it works locally
+    # -
+    #  php: 7.4
+    #  env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
     -
       php: 7.4
       env: 'INSTALLER_VERSION=4.5 PHPSTAN_TEST=1'
