@@ -40,9 +40,6 @@ matrix:
       env: 'INSTALLER_VERSION=4.5 DUPLICATE_CODE_CHECK=1'
     -
       php: 7.4
-      env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
-    -
-      php: 7.4
       env: 'INSTALLER_VERSION=4.5 LINT_CHECK=1'
 
 
