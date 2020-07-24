@@ -10,7 +10,7 @@
     "DarkSky"
   ],
   "homepage": "https:\/\/github.com\/suilven\/silverstripe-darksky",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "authors": [
     {
       "name": "Gordon Anderson",
