@@ -39,7 +39,7 @@ class DarkSkyAPITest extends SapphireTest
         $currentWeatherRecord = $populator->createPopulatedRecordWithLocation(
             $forecast->getLatitude(),
             $forecast->getLongitude(),
-            $forecast->getCurrently(),
+            $forecast->getCurrently()
         );
 
 
