@@ -16,18 +16,34 @@ env:
 
 matrix:
   include:
-    - php: 7.1
-      env: DB=PGSQL RECIPE_VERSION=4.3.x-dev  PHPUNIT_TEST=1
-    - php: 7.2
-      env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
-    - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_COVERAGE_TEST=1
-    - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
-    - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
-    - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1
+    -
+      php: 7.4
+      env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
+    -
+      php: 7.4
+      env: 'INSTALLER_VERSION=4.5 PHPSTAN_TEST=1'
+    -
+      php: 7.1
+      env: 'INSTALLER_VERSION=4.4 PHPUNIT_TEST=1'
+    -
+      php: 7.2
+      env: 'INSTALLER_VERSION=4.4 PHPUNIT_COVERAGE_TEST=1'
+    -
+      php: 7.3
+      env: 'INSTALLER_VERSION=4.5 PHPUNIT_TEST=1'
+    -
+      php: 7.4
+      env: 'INSTALLER_VERSION=4.5.x-dev PHPUNIT_TEST=1'
+    -
+      php: 7.4
+      env: 'INSTALLER_VERSION=4.5 DUPLICATE_CODE_CHECK=1'
+    -
+      php: 7.4
+      env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
+    -
+      php: 7.4
+      env: 'INSTALLER_VERSION=4.5 LINT_CHECK=1'
+
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
@@ -37,28 +53,23 @@ before_script:
   # Init PHP
   - phpenv rehash
   - phpenv config-rm xdebug.ini
+  - 'if [[ $DUPLICATE_CODE_CHECK ]]; then sudo apt remove -y nodejs && curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh && sudo bash nodesource_setup.sh && sudo apt install -y build-essential nodejs && which npm && npm install jscpd@3.2.1  ;fi'
   - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - 'export UNIT_TESTING_CONFIG_ENABLED=1'
-  - pwd
-  - ls -al
   - echo 'SS_BASE_URL="http://localhost"' > .env
   - echo 'SS_DATABASE_CLASS="MySQLPDODatabase"' >> .env
   - echo 'SS_DATABASE_NAME="travis_ci_test"' >> .env
   - echo 'SS_DATABASE_USERNAME="root"' >> .env
   - echo 'SS_DATABASE_PASSWORD=""' >> .env
   - echo 'SS_DATABASE_SERVER="localhost"' >> .env
-  - cat .env
-
-
-
-
-
+  - env
 
 
 
 
   # Install composer dependencies
   - composer validate # --strict here?
+  - 'composer global require hirak/prestissimo'
   - composer require silverstripe/recipe-cms:"$RECIPE_VERSION" silverstripe/recipe-testing:^1 --no-update
   - composer require --no-update silverstripe/widgets
   - if [[ $BEHAT_TEST ]]; then composer require --no-update silverstripe/behat-extension:4.x-dev; fi;
