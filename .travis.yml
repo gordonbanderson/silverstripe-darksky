@@ -17,7 +17,7 @@ env:
 matrix:
   include:
     -
-      php: 7.3
+      php: 7.2
       env: 'INSTALLER_VERSION=4.5 PHPCS_TEST=1'
     -
       php: 7.4
