@@ -1,11 +1,8 @@
-# SilverStripe Module Starter
+# Dark Sky SilverStripe Client
 [![Build Status](https://travis-ci.org/gordonbanderson/silverstripe-darksky.svg?branch=master)](https://travis-ci.org/gordonbanderson/silverstripe-darksky)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/badges/build.png?b=master)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-darksky/build-status/master)
-[![CircleCI](https://circleci.com/gh/gordonbanderson/silverstripe-darksky.svg?style=svg)](https://circleci.com/gh/gordonbanderson/silverstripe-darksky)
-
 [![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-darksky/coverage.svg?branch=master)](https://codecov.io/github/gordonbanderson/silverstripe-darksky?branch=master)
-
 
 [![Latest Stable Version](https://poser.pugx.org/suilven/silverstripe-darksky/version)](https://packagist.org/packages/suilven/silverstripe-darksky)
 [![Latest Unstable Version](https://poser.pugx.org/suilven/silverstripe-darksky/v/unstable)](//packagist.org/packages/suilven/silverstripe-darksky)
@@ -23,11 +20,10 @@
 
 ![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-darksky/branch.svg?branch=master)
 
-A starter kit that has everything you need to get underway with a new module for [SilverStripe v4][silverstripe].
+
 
 ## Contents
 
-- [Requirements](#requirements)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
@@ -36,19 +32,13 @@ A starter kit that has everything you need to get underway with a new module for
 - [Maintainers](#maintainers)
 - [License](#license)
 
-## Requirements
-
-- Git
-- PHP
-- Node.js
-- Yarn (or npm)
 
 ## Installation
 
-Using `git`, clone the repo to a location of your choice:
+Use Composer:
 
 ```bash
-$ git clone https://github.com/praxisnetau/silverstripe-module-starter ./my-repo-name
+composer require suilven/silverstripe-darksky
 ```
 
 After the repo has cloned, you will need to run the `setup.php` script:
@@ -69,19 +59,7 @@ SILVERSTRIPE MODULE SETUP
 > Loading config file...
 > Checking files...
 > Files OK!
-> Gathering setup data...
-Vendor (default "vendor"): examplecorp
-Module (default "module"): awesome-module
-Repository name (default "examplecorp/awesome-module"):
-Repository URL (default "https://github.com/examplecorp/awesome-module"):
-Module name (default "My SilverStripe Module"): My Awesome Module
-Namespace (PSR-4) (default "Vendor\Module"): Example\Awesome
-Description: An awesome new SilverStripe module.
-Author (default "My Name"): Jane Bloggs
-Email (default "name@example.com"): jane@example.com
-Organisation (default "My Organisation"): Example Corp
-Homepage (default "https://www.example.com"):
-Keywords (comma-separated): silverstripe, example
+
 ```
 
 If a question has a default value, just hit enter to accept the default.
@@ -108,134 +86,9 @@ verify that it can process each file before proceeding.
 
 ## Configuration
 
-The setup script supports a `setup.json` file kept in the same location
-as `setup.php`. Using this file, you can override any of the default
-configuration settings. By forking the repo and adding your own settings
-to this file, you can save yourself even more typing. For example:
+Oh Apple have bought the service, so you cannot sign up for an API key...
 
-```json
-{
-  "default-vendor": "examplecorp",
-  "default-author": "Jane Bloggs",
-  "default-email": "jane@example.com",
-  "default-organisation": "Example Corp",
-  "default-homepage": "https://www.example.com"
-}
-```
 
-## Usage
-
-The module comes pre-configured with everything you need to get underway. Frontend resources
-are processed and bundled using [webpack][webpack], and the included config is ready to create bundles for
-both the website and the CMS. Your admin bundles will be included in the CMS automatically
-(see [config.yml](_config/config.yml)), however you will need to handle loading the website bundles yourself,
-e.g. by using `Requirements` in your controller.
-
-A `yarn.lock` file is included with the repo. To install build dependencies, run:
-
-```bash
-$ yarn install
-```
-
-This will download all of the build dependencies into the `node_modules` folder. Two scripts are pre-configured
-for Yarn, `watch` for development, and `build` for production:
-
-```bash
-$ yarn watch
-```
-
-This will watch your source files and automatically recompile when a change is detected.
-
-```bash
-$ yarn build
-```
-
-This will prepare your files for distribution by clearing the `dist/` folders and compiling + optimising the
-created bundles.
-
-### Bundles
-
-Using the default webpack config, bundle files will be created from your source files in two locations:
-
-- `admin/client/dist/`
-- `client/dist/`
-
-These folders are exposed by default within the `composer.json` file, so that when your module is installed into
-a SilverStripe v4 app, these folders are automatically exposed in the `resources/` folder.
-
-To include your module bundles for the website, you'll need to load your `dist/` bundles, for example
-by using the SilverStripe `Requirements` class in your controller (where `vendor/module` is your repository name):
-
-```php
-use SilverStripe\View\Requirements;
-
-Requirements::css('vendor/module: client/dist/styles/bundle.css');
-Requirements::javascript('vendor/module: client/dist/js/bundle.js');
-```
-
-### Source
-
-The webpack build relies on two pairs of source bundle files for the CMS and website:
-
-- `admin/client/src/bundles/bundle.js`
-- `admin/client/src/styles/bundle.scss`
-- `client/src/bundles/bundle.js`
-- `client/src/styles/bundle.scss`
-
-Each `bundle.js` file will pull in any required JavaScript and Sass styles. By default, each `bundle.js`
-requires the `bundle.scss` file to load your styles. Each `bundle.scss` file imports variables from the
-`_variables.scss` file by default.
-
-The general idea is to add your own JavaScript under each `src/` folder for anything you need, and to add your styles
-as `.scss` files under the `src/styles/` folder. Then edit each bundle to require or import your source files. For
-example:
-
-#### Example Script Bundle
-
-```js
-/* Module Bundle
-===================================================================================================================== */
-
-// Load Styles:
-
-require('styles/bundle.scss');
-
-// Load Scripts:
-
-require('pages/MyPage.js');
-```
-
-This would require the file `src/pages/MyPage.js`.
-
-#### Example Style Bundle
-
-```sass
-/* Module Bundle
-===================================================================================================================== */
-
-// Import Variables:
-
-@import "variables";
-
-// Import Styles:
-
-@import "pages/MyPage";
-```
-
-This would import the file `src/styles/pages/MyPage.scss`.
-
-### Icons
-
-Copy any icon files required for your SilverStripe page classes into the `admin/client/src/images/icons/` folder.
-These images will be copied to the `admin/client/dist/` folder upon `watch` or `build`. You can reference these icons
-in your classes by using the following notation (where `vendor/module` is your repository name):
-
-```php
-class MyPage extends Page
-{
-    private static $icon = 'vendor/module: admin/client/dist/images/icons/MyPage.png';
-}
-```
 
 ## Continuous Integration
 The following services are free for open source repositories.  Note that both Scrutinizer and CodeCov show your source
@@ -243,12 +96,7 @@ code, as such if you are writing closed source code you will need to either pay 
 the continuous integration files.  Both CodeCov and Scrutinizer can be integrated with GitHub.
 
 ### Unit Testing
-This repository provides configuration for 2 external continous testing services, Travis and Circle CI.  Circle CI is
-around 3 times faster, but lacks out of the box ability to test with different versions of PHP, database, etc.  If you
-use third party software, e.g. sphinx, then then `.travis.yml` and `circleci\config.yml` will need edited.
-
-You will need to add accounts and then add your module at the following URLs:
-* CircleCI: https://circleci.com/
+Pushes are run against Travis
 
 ### Code Coverage
 The CI files upload code coverage to a third party service called CodeCov.  To see your test coverage, open an account
@@ -257,16 +105,7 @@ The CI files upload code coverage to a third party service called CodeCov.  To s
 Scrutinizer is a third party service that staticaly analyzes your code looking for likes of PSR violations, formatting,
 and complex code (i.e. code smells).  A sample configuration file is provided.  You will need to set up an account and
 
-### Badges
-A simple Ruby script to add badges to your README file is available at https://github.com/gordonbanderson/Badger - simply
-`cd /path/to/your/repo && /path/to/badger/bin/badger`.  After the first line starting with a #, the badges for the current
-repository and branch will be added. 
-
-### Baseline CI Example
-The following is a valid SilverStripe repository with a single test added - https://github.com/gordonbanderson/travistestmodule
-
 ## Issues
-
 Please use the [GitHub issue tracker][issues] for bug reports and feature requests.
 
 ## Contribution
@@ -274,21 +113,9 @@ Please use the [GitHub issue tracker][issues] for bug reports and feature reques
 Your contributions are gladly welcomed to help make this project better.
 Please see [contributing](CONTRIBUTING.md) for more information.
 
-## Docker Build
-```
-sdc build --no-cache --build-arg MARIADB_ROOT_PASSWORD=your_password --build-arg MARIADB_PASSWORD=your_password  database
-
-mysql --user=root --password=root66 --host=database
- GRANT ALL PRIVILEGES ON *.* TO 'docker'@'%';
-mysql --user=docker --password=docker --host=database
-prime-module-for-testing
-```
-
 ## Maintainers
 
-[![Colin Tucker](https://avatars3.githubusercontent.com/u/1853705?s=144)](https://github.com/colintucker) | [![Praxis Interactive](https://avatars2.githubusercontent.com/u/1782612?s=144)](http://www.praxis.net.au)
----|---
-[Colin Tucker](https://github.com/colintucker) | [Praxis Interactive](http://www.praxis.net.au)
+[![Gordon Anderson](https://avatars2.githubusercontent.com/u/7060?s=144&u=4535192eb64a73e48e927f55830f6db04ff4f08c&v=4)](https://github.com/gordonbanderson)
 
 ## Attribution
 ### Weather Icons
@@ -296,8 +123,8 @@ Fhatkul Karim, https://www.iconfinder.com/iconsets/weather-line-19
 
 ## License
 
-[BSD-3-Clause](LICENSE.md)
+[MIT](LICENSE.md)
 
 [silverstripe]: https://github.com/silverstripe/silverstripe-framework
 [webpack]: https://webpack.js.org
-[issues]: https://github.com/praxisnetau/silverstripe-module-starter/issues
+[issues]: https://github.com/gordonbanderson/silverstripe-darksky/issues
