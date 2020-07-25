@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Update README [\#9](https://github.com/gordonbanderson/silverstripe-darksky/pull/9) ([gordonbanderson](https://github.com/gordonbanderson))
 - FIX: License [\#8](https://github.com/gordonbanderson/silverstripe-darksky/pull/8) ([gordonbanderson](https://github.com/gordonbanderson))
 - Coding Standards [\#7](https://github.com/gordonbanderson/silverstripe-darksky/pull/7) ([gordonbanderson](https://github.com/gordonbanderson))
 - Node security fixes [\#6](https://github.com/gordonbanderson/silverstripe-darksky/pull/6) ([gordonbanderson](https://github.com/gordonbanderson))
